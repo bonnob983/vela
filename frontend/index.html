@@ -23,7 +23,6 @@
     --text-dim: #4A4035;
     --border: rgba(201,168,76,0.15);
     --border-strong: rgba(201,168,76,0.35);
-    --blur-color: rgba(201,168,76,0.04);
   }
 
   html { scroll-behavior: smooth; }
@@ -38,13 +37,15 @@
 
   /* AGE GATE */
   #age-gate {
-    position: fixed; inset: 0; z-index: 9999;
+    position: fixed; inset: 0; z-index: 100;
     background: var(--bg);
     display: flex; align-items: center; justify-content: center;
     flex-direction: column;
     text-align: center;
     padding: 2rem;
   }
+
+  #age-gate.hidden { display: none; }
 
   .gate-logo {
     font-family: 'Cormorant Garamond', serif;
@@ -86,10 +87,7 @@
     line-height: 1.7;
   }
 
-  .gate-btns {
-    display: flex;
-    gap: 1rem;
-  }
+  .gate-btns { display: flex; gap: 1rem; }
 
   .btn-yes {
     background: var(--gold);
@@ -102,10 +100,7 @@
     text-transform: uppercase;
     cursor: pointer;
     font-weight: 500;
-    transition: background 0.2s;
   }
-
-  .btn-yes:hover { background: var(--gold-light); }
 
   .btn-no {
     background: transparent;
@@ -117,10 +112,7 @@
     letter-spacing: 0.2em;
     text-transform: uppercase;
     cursor: pointer;
-    transition: border-color 0.2s;
   }
-
-  .btn-no:hover { border-color: var(--text-muted); }
 
   .gate-legal {
     position: absolute;
@@ -133,10 +125,11 @@
 
   /* MAIN SITE */
   #main-site { display: none; }
+  #main-site.visible { display: block; }
 
   /* NAV */
   nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
     padding: 1.25rem 3rem;
     display: flex;
     align-items: center;
@@ -167,7 +160,6 @@
     text-transform: uppercase;
     color: var(--text-muted);
     text-decoration: none;
-    transition: color 0.2s;
   }
 
   .nav-links a:hover { color: var(--gold); }
@@ -184,10 +176,7 @@
     font-family: 'Inter', sans-serif;
     font-weight: 500;
     text-decoration: none;
-    transition: background 0.2s;
   }
-
-  .nav-cta:hover { background: var(--gold-light); }
 
   /* HERO */
   .hero {
@@ -205,8 +194,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background:
-      radial-gradient(ellipse 60% 40% at 50% 60%, rgba(201,168,76,0.06) 0%, transparent 70%);
+    background: radial-gradient(ellipse 60% 40% at 50% 60%, rgba(201,168,76,0.06) 0%, transparent 70%);
   }
 
   .hero-eyebrow {
@@ -225,13 +213,9 @@
     line-height: 0.95;
     color: var(--text);
     margin-bottom: 2rem;
-    letter-spacing: -0.01em;
   }
 
-  .hero-title em {
-    font-style: italic;
-    color: var(--gold);
-  }
+  .hero-title em { font-style: italic; color: var(--gold); }
 
   .hero-desc {
     font-size: 0.9rem;
@@ -262,10 +246,7 @@
     font-weight: 500;
     text-decoration: none;
     display: inline-block;
-    transition: background 0.2s;
   }
-
-  .btn-primary:hover { background: var(--gold-light); }
 
   .btn-outline {
     background: transparent;
@@ -279,10 +260,7 @@
     font-family: 'Inter', sans-serif;
     text-decoration: none;
     display: inline-block;
-    transition: border-color 0.2s, color 0.2s;
   }
-
-  .btn-outline:hover { border-color: var(--gold); color: var(--gold-light); }
 
   .hero-scroll {
     position: absolute;
@@ -312,7 +290,6 @@
     50% { opacity: 1; }
   }
 
-  /* SECTIONS */
   section {
     padding: 6rem 3rem;
     max-width: 1200px;
@@ -357,7 +334,6 @@
     overflow: hidden;
     cursor: pointer;
     position: relative;
-    group: true;
   }
 
   .content-thumb {
@@ -478,8 +454,6 @@
     align-items: center;
   }
 
-  .locked-info-left { }
-
   .locked-tag {
     font-size: 0.55rem;
     letter-spacing: 0.3em;
@@ -501,37 +475,35 @@
     font-weight: 500;
   }
 
-  /* PAYMENT MODAL */
+  /* PAYMENT MODAL — fixed z-index above everything */
   #modal-overlay {
     display: none;
     position: fixed;
     inset: 0;
-    z-index: 1000;
-    background: rgba(0,0,0,0.85);
+    z-index: 9999;
+    background: rgba(0,0,0,0.88);
     align-items: center;
     justify-content: center;
     padding: 1rem;
   }
 
-  #modal-overlay.open {
-    display: flex;
-  }
+  #modal-overlay.open { display: flex; }
 
   .modal {
-    background: #1A1409;
-    color: #EDE5D0;
-    border: 1px solid rgba(201,168,76,0.35);
+    background: #ffffff;
+    color: #000000;
+    border: 1px solid rgba(201,168,76,0.4);
     width: 100%;
     max-width: 520px;
     max-height: 90vh;
     overflow-y: auto;
     position: relative;
-    z-index: 1001;
+    z-index: 10000;
   }
 
   .modal-header {
-    background: #1A1409;
-    color: #EDE5D0;
+    background: #ffffff;
+    color: #000000;
     padding: 2rem 2rem 1.5rem;
     border-bottom: 1px solid var(--border);
     display: flex;
@@ -543,7 +515,7 @@
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.6rem;
     font-weight: 300;
-    color: var(--text);
+    color: #000000;
   }
 
   .modal-subtitle {
@@ -553,28 +525,30 @@
   }
 
   .modal-close {
-    background: none;
+    background: #000000;
     border: none;
-    color: #EDE5D0;
+    color: #ffffff;
     cursor: pointer;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: bold;
     line-height: 1;
-    padding: 0;
+    padding: 0.2rem 0.6rem;
     flex-shrink: 0;
     margin-left: 1rem;
   }
 
-  .modal-close:hover { color: var(--text); }
-
-  .modal-body { background: #1A1409; color: #EDE5D0; padding: 2rem; }
+  .modal-body {
+    background: #ffffff;
+    color: #000000;
+    padding: 2rem;
+  }
 
   .modal-item-preview {
     display: flex;
     align-items: center;
     gap: 1rem;
     padding: 1rem;
-    background: var(--surface);
+    background: #211A0C;
     border: 1px solid var(--border);
     margin-bottom: 1.5rem;
   }
@@ -582,7 +556,7 @@
   .preview-thumb {
     width: 56px;
     height: 56px;
-    background: var(--surface2);
+    background: #2a1e0a;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -595,7 +569,7 @@
   }
 
   .preview-info { flex: 1; }
-  .preview-name { font-size: 0.85rem; color: var(--text); margin-bottom: 0.15rem; }
+  .preview-name { font-size: 0.85rem; color: #EDE5D0; margin-bottom: 0.15rem; }
   .preview-type { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); }
   .preview-price { font-size: 1.1rem; color: var(--gold); font-weight: 500; }
 
@@ -622,15 +596,12 @@
     display: flex;
     align-items: center;
     gap: 1rem;
-    transition: border-color 0.2s, background 0.2s;
-    background: var(--surface);
-    color: var(--text);
+    transition: border-color 0.2s;
+    background: #f5f5f5;
+    color: #000000;
   }
 
-  .payment-method:hover, .payment-method.selected {
-    border-color: var(--gold);
-    background: var(--surface);
-  }
+  .payment-method:hover, .payment-method.selected { border-color: var(--gold); }
 
   .payment-method input[type="radio"] {
     accent-color: var(--gold);
@@ -655,8 +626,9 @@
   .method-icon.telegram { background: #0088cc22; }
 
   .method-info { flex: 1; }
-  .method-name { font-size: 0.85rem; color: var(--text); font-weight: 400; margin-bottom: 0.1rem; }
+  .method-name { font-size: 0.85rem; color: #EDE5D0; font-weight: 400; margin-bottom: 0.1rem; }
   .method-desc { font-size: 0.7rem; color: var(--text-muted); }
+
   .method-badge {
     font-size: 0.55rem;
     letter-spacing: 0.15em;
@@ -669,14 +641,13 @@
   .badge-anon { color: var(--gold); border-color: var(--gold-dim); }
   .badge-fast { color: #5cd85c; border-color: #2a602a; }
 
-  /* PAYMENT PANELS */
   .payment-panel {
     display: none;
     border: 1px solid var(--border);
     padding: 1.5rem;
-    background: var(--surface);
+    background: #f5f5f5;
     margin-bottom: 1.5rem;
-    color: var(--text);
+    color: #000000;
   }
 
   .payment-panel.active { display: block; }
@@ -705,14 +676,14 @@
   }
 
   .step-text { flex: 1; }
-  .step-title { font-size: 0.82rem; color: var(--text); margin-bottom: 0.25rem; }
-  .step-detail { font-size: 0.75rem; color: var(--text-muted); line-height: 1.6; }
+  .step-title { font-size: 0.82rem; color: #000000; margin-bottom: 0.25rem; }
+  .step-detail { font-size: 0.75rem; color: #333333; line-height: 1.6; }
 
   .copy-field {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    background: var(--bg);
+    background: #0A0806;
     border: 1px solid var(--border);
     padding: 0.6rem 0.85rem;
     margin-top: 0.5rem;
@@ -736,25 +707,22 @@
     text-transform: uppercase;
     white-space: nowrap;
     padding: 0;
-    transition: color 0.2s;
   }
 
   .copy-btn:hover { color: var(--gold); }
 
   .tx-input-wrap { margin-top: 1rem; }
-
   .tx-label { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.1em; margin-bottom: 0.5rem; display: block; }
 
   .tx-input {
     width: 100%;
-    background: var(--bg);
+    background: #0A0806;
     border: 1px solid var(--border);
-    color: var(--text);
+    color: #EDE5D0;
     padding: 0.7rem 0.9rem;
     font-size: 0.82rem;
     font-family: 'Inter', sans-serif;
     outline: none;
-    transition: border-color 0.2s;
   }
 
   .tx-input:focus { border-color: var(--gold-dim); }
@@ -763,7 +731,7 @@
   .btn-submit {
     width: 100%;
     background: var(--gold);
-    color: var(--bg);
+    color: #0A0806;
     border: none;
     padding: 1rem;
     font-size: 0.75rem;
@@ -772,11 +740,8 @@
     cursor: pointer;
     font-family: 'Inter', sans-serif;
     font-weight: 500;
-    transition: background 0.2s;
     margin-top: 1.5rem;
   }
-
-  .btn-submit:hover { background: var(--gold-light); }
 
   .modal-note {
     font-size: 0.68rem;
@@ -787,11 +752,12 @@
     border-top: 1px solid var(--border);
   }
 
-  /* SUCCESS */
   .success-panel {
     display: none;
     text-align: center;
     padding: 2.5rem;
+    background: #1A1409;
+    color: #EDE5D0;
   }
 
   .success-panel.active { display: block; }
@@ -816,7 +782,7 @@
     font-family: 'Cormorant Garamond', serif;
     font-size: 2rem;
     font-weight: 300;
-    color: var(--text);
+    color: #EDE5D0;
     margin-bottom: 0.75rem;
   }
 
@@ -827,7 +793,6 @@
     margin-bottom: 1.5rem;
   }
 
-  /* STATS */
   .stats-row {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -859,7 +824,6 @@
     color: var(--text-muted);
   }
 
-  /* ABOUT */
   .about-layout {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -888,7 +852,6 @@
     margin-bottom: 1.5rem;
   }
 
-  /* FOOTER */
   footer {
     border-top: 1px solid var(--border);
     padding: 3rem;
@@ -912,7 +875,6 @@
     margin: 0 auto;
   }
 
-  /* RESPONSIVE */
   @media (max-width: 768px) {
     nav { padding: 1rem 1.25rem; }
     .nav-links { display: none; }
@@ -937,7 +899,7 @@
     <button class="btn-yes" onclick="enterSite()">Yes, I'm 18+</button>
     <button class="btn-no" onclick="exitSite()">No, exit</button>
   </div>
-  <p class="gate-legal">By entering this site you agree to our Terms of Service and confirm you are of legal age in your jurisdiction. This site stores a session cookie to remember your age verification.</p>
+  <p class="gate-legal">By entering this site you agree to our Terms of Service and confirm you are of legal age in your jurisdiction.</p>
 </div>
 
 <!-- MAIN SITE -->
@@ -953,7 +915,6 @@
     <a href="#premium" class="nav-cta">Unlock Premium</a>
   </nav>
 
-  <!-- HERO -->
   <div class="hero">
     <div style="position: relative; z-index: 1; max-width: 700px;">
       <span class="hero-eyebrow">Exclusive Fitness & Wellness</span>
@@ -967,11 +928,10 @@
     <div class="hero-scroll">Scroll</div>
   </div>
 
-  <!-- STATS -->
   <div style="max-width: 1200px; margin: 0 auto; padding: 0 3rem;">
     <div class="stats-row">
       <div class="stat">
-        <div class="stat-num">120+</div>
+        <div class="stat-num" id="stat-count">120+</div>
         <div class="stat-label">Premium pieces</div>
       </div>
       <div class="stat">
@@ -985,29 +945,26 @@
     </div>
   </div>
 
-  <!-- FREE CONTENT -->
   <section id="free">
     <span class="section-label">Free Access</span>
     <h2 class="section-title">A taste<br>of the vault</h2>
     <div class="section-divider"></div>
     <div class="content-grid" id="free-content-grid">
-      <div class="thumb-placeholder" style="grid-column: 1/-1; padding: 3rem; aspect-ratio: auto;">Loading content…</div>
+      <div class="thumb-placeholder" style="grid-column:1/-1;padding:3rem;aspect-ratio:auto;">Loading content…</div>
     </div>
   </section>
 
-  <!-- PREMIUM / LOCKED -->
   <section id="premium" style="background: var(--bg3); max-width: 100%; padding: 6rem 0;">
     <div style="max-width: 1200px; margin: 0 auto; padding: 0 3rem;">
       <span class="section-label">Locked Content</span>
       <h2 class="section-title">Premium vault</h2>
       <div class="section-divider"></div>
       <div class="locked-grid" id="locked-content-grid">
-        <div class="thumb-placeholder" style="grid-column: 1/-1; padding: 3rem; aspect-ratio: auto;">Loading premium content…</div>
+        <div class="thumb-placeholder" style="grid-column:1/-1;padding:3rem;aspect-ratio:auto;">Loading premium content…</div>
       </div>
     </div>
   </section>
 
-  <!-- ABOUT -->
   <section id="about">
     <div class="about-layout">
       <div class="about-visual">Your photo here</div>
@@ -1031,180 +988,139 @@
 
 <!-- PAYMENT MODAL -->
 <div id="modal-overlay" onclick="closeModalOutside(event)">
-  <div class="modal">
+  <div class="modal" onclick="event.stopPropagation()">
     <div class="modal-header">
       <div>
         <div class="modal-title">Unlock Content</div>
         <div class="modal-subtitle" id="modal-subtitle">Choose your payment method</div>
       </div>
-      <button class="modal-close" onclick="closeModal()">×</button>
+      <button class="modal-close" onclick="closeModal()">✕</button>
     </div>
     <div id="modal-form-area">
-    <div class="modal-body">
+      <div class="modal-body">
 
-      <!-- Item preview -->
-      <div class="modal-item-preview">
-        <div class="preview-thumb">
-          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <div class="modal-item-preview">
+          <div class="preview-thumb">
+            <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <div class="preview-info">
+            <div class="preview-name" id="modal-item-name">Item Name</div>
+            <div class="preview-type" id="modal-item-type">Type</div>
+          </div>
+          <div class="preview-price" id="modal-item-price">$0</div>
         </div>
-        <div class="preview-info">
-          <div class="preview-name" id="modal-item-name">Item Name</div>
-          <div class="preview-type" id="modal-item-type">Type</div>
+
+        <span class="payment-label">Step 1 — Where to send your link</span>
+        <div class="tx-input-wrap" style="margin-bottom: 1.5rem;">
+          <label class="tx-label" for="tg-handle">Your Telegram username (for delivery)</label>
+          <input type="text" class="tx-input" id="tg-handle" placeholder="@yourusername" />
         </div>
-        <div class="preview-price" id="modal-item-price">$0</div>
-      </div>
 
-      <!-- Your Telegram handle for delivery -->
-      <span class="payment-label">Step 1 — Where to send your link</span>
-      <div class="tx-input-wrap" style="margin-bottom: 1.5rem;">
-        <label class="tx-label">Your Telegram username (for delivery)</label>
-        <input type="text" class="tx-input" id="tg-handle" placeholder="@yourusername" />
-      </div>
+        <span class="payment-label">Step 2 — Choose payment method</span>
+        <div class="payment-methods">
 
-      <!-- Payment method selection -->
-      <span class="payment-label">Step 2 — Choose payment method</span>
-      <div class="payment-methods">
-
-        <label class="payment-method" onclick="selectMethod('binance')">
-          <input type="radio" name="method" value="binance" />
-          <div class="method-icon binance">₿</div>
-          <div class="method-info">
-            <div class="method-name">Binance Pay</div>
-            <div class="method-desc">Crypto · fully anonymous · instant</div>
-          </div>
-          <span class="method-badge badge-anon">Anonymous</span>
-        </label>
-
-        <label class="payment-method" onclick="selectMethod('paypal')">
-          <input type="radio" name="method" value="paypal" />
-          <div class="method-icon paypal" style="color: #fff; font-size: 0.7rem; font-weight: 700; letter-spacing: -0.05em;">PP</div>
-          <div class="method-info">
-            <div class="method-name">PayPal</div>
-            <div class="method-desc">Familiar & fast · requires PayPal account</div>
-          </div>
-          <span class="method-badge badge-fast">Fast</span>
-        </label>
-
-        <label class="payment-method" onclick="selectMethod('telegram')">
-          <input type="radio" name="method" value="telegram" />
-          <div class="method-icon telegram" style="color: #0088cc; font-size: 1rem;">✈</div>
-          <div class="method-info">
-            <div class="method-name">Telegram Stars</div>
-            <div class="method-desc">Pay inside Telegram · seamless</div>
-          </div>
-          <span class="method-badge badge-fast">Seamless</span>
-        </label>
-
-      </div>
-
-      <!-- BINANCE INSTRUCTIONS -->
-      <div class="payment-panel" id="panel-binance">
-        <div class="payment-step">
-          <div class="step-num">1</div>
-          <div class="step-text">
-            <div class="step-title">Send exact amount to Binance ID</div>
-            <div class="step-detail">Open Binance app → Pay → Send → enter ID below</div>
-            <div class="copy-field">
-              <code id="binance-amount">$8.00 USDT</code>
-              <button class="copy-btn" onclick="copyText('binance-amount')">Copy</button>
+          <label class="payment-method" onclick="selectMethod('binance')">
+            <input type="radio" name="method" value="binance" id="method-binance" />
+            <div class="method-icon binance">₿</div>
+            <div class="method-info">
+              <div class="method-name">Binance Pay</div>
+              <div class="method-desc">Crypto · fully anonymous · instant</div>
             </div>
-            <div class="copy-field" style="margin-top: 6px;">
-              <code>YOUR_BINANCE_ID_HERE</code>
-              <button class="copy-btn" onclick="copyText('', 'YOUR_BINANCE_ID_HERE')">Copy</button>
+            <span class="method-badge badge-anon">Anonymous</span>
+          </label>
+
+          <label class="payment-method" onclick="selectMethod('paypal')">
+            <input type="radio" name="method" value="paypal" id="method-paypal" />
+            <div class="method-icon paypal" style="color:#fff;font-size:0.7rem;font-weight:700;">PP</div>
+            <div class="method-info">
+              <div class="method-name">PayPal</div>
+              <div class="method-desc">Familiar & fast · requires PayPal account</div>
+            </div>
+            <span class="method-badge badge-fast">Fast</span>
+          </label>
+
+        </div>
+
+        <!-- BINANCE INSTRUCTIONS -->
+        <div class="payment-panel" id="panel-binance">
+          <div class="payment-step">
+            <div class="step-num">1</div>
+            <div class="step-text">
+              <div class="step-title">Send exact amount to Binance ID</div>
+              <div class="step-detail">Open Binance app → Pay → Send → enter ID below</div>
+              <div class="copy-field">
+                <code id="binance-amount">$8.00 USDT</code>
+                <button class="copy-btn" onclick="copyText('binance-amount')">Copy</button>
+              </div>
+              <div class="copy-field" style="margin-top:6px;">
+                <code>YOUR_BINANCE_ID_HERE</code>
+                <button class="copy-btn" onclick="copyText('','YOUR_BINANCE_ID_HERE')">Copy</button>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="payment-step">
-          <div class="step-num">2</div>
-          <div class="step-text">
-            <div class="step-title">Paste your Transaction ID below</div>
-            <div class="step-detail">Found in Binance → Orders → Transaction History</div>
-            <div class="tx-input-wrap">
-              <input type="text" class="tx-input" id="binance-tx" placeholder="e.g. 4039128736459..." />
+          <div class="payment-step">
+            <div class="step-num">2</div>
+            <div class="step-text">
+              <div class="step-title">Paste your Transaction ID below</div>
+              <div class="step-detail">Found in Binance → Orders → Transaction History</div>
+              <div class="tx-input-wrap">
+                <input type="text" class="tx-input" id="binance-tx" placeholder="e.g. 4039128736459..." />
+              </div>
+            </div>
+          </div>
+          <div class="payment-step">
+            <div class="step-num">3</div>
+            <div class="step-text">
+              <div class="step-title">Submit & receive your link on Telegram</div>
+              <div class="step-detail">Once verified, your unique download link is sent to your Telegram within minutes.</div>
             </div>
           </div>
         </div>
-        <div class="payment-step">
-          <div class="step-num">3</div>
-          <div class="step-text">
-            <div class="step-title">Submit & receive your link on Telegram</div>
-            <div class="step-detail">Once verified, your unique download link is sent to your Telegram within minutes.</div>
-          </div>
-        </div>
-      </div>
 
-      <!-- PAYPAL INSTRUCTIONS -->
-      <div class="payment-panel" id="panel-paypal">
-        <div class="payment-step">
-          <div class="step-num">1</div>
-          <div class="step-text">
-            <div class="step-title">Send payment via PayPal</div>
-            <div class="step-detail">Go to PayPal → Send Money → Friends & Family</div>
-            <div class="copy-field">
-              <code id="paypal-amount">$8.00</code>
-              <button class="copy-btn" onclick="copyText('paypal-amount')">Copy</button>
-            </div>
-            <div class="copy-field" style="margin-top: 6px;">
-              <code>masilaboniface1@gmail.com</code>
-              <button class="copy-btn" onclick="copyText('', 'masilaboniface1@gmail.com')">Copy</button>
+        <!-- PAYPAL INSTRUCTIONS -->
+        <div class="payment-panel" id="panel-paypal">
+          <div class="payment-step">
+            <div class="step-num">1</div>
+            <div class="step-text">
+              <div class="step-title">Send payment via PayPal</div>
+              <div class="step-detail">Go to PayPal → Send Money → Friends & Family</div>
+              <div class="copy-field">
+                <code id="paypal-amount">$8.00</code>
+                <button class="copy-btn" onclick="copyText('paypal-amount')">Copy</button>
+              </div>
+              <div class="copy-field" style="margin-top:6px;">
+                <code>masilaboniface1@gmail.com</code>
+                <button class="copy-btn" onclick="copyText('','masilaboniface1@gmail.com')">Copy</button>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="payment-step">
-          <div class="step-num">2</div>
-          <div class="step-text">
-            <div class="step-title">Paste your PayPal Transaction ID</div>
-            <div class="step-detail">Found in your PayPal → Activity → Transaction details</div>
-            <div class="tx-input-wrap">
-              <input type="text" class="tx-input" id="paypal-tx" placeholder="e.g. 3AB12345CD678..." />
+          <div class="payment-step">
+            <div class="step-num">2</div>
+            <div class="step-text">
+              <div class="step-title">Paste your PayPal Transaction ID</div>
+              <div class="step-detail">Found in PayPal → Activity → Transaction details</div>
+              <div class="tx-input-wrap">
+                <input type="text" class="tx-input" id="paypal-tx" placeholder="e.g. 3AB12345CD678..." />
+              </div>
+            </div>
+          </div>
+          <div class="payment-step">
+            <div class="step-num">3</div>
+            <div class="step-text">
+              <div class="step-title">Submit & receive your link on Telegram</div>
+              <div class="step-detail">Link delivered to your Telegram within minutes of verification.</div>
             </div>
           </div>
         </div>
-        <div class="payment-step">
-          <div class="step-num">3</div>
-          <div class="step-text">
-            <div class="step-title">Submit & receive your link on Telegram</div>
-            <div class="step-detail">Link delivered to your Telegram within minutes of verification.</div>
-          </div>
-        </div>
+
+        <button class="btn-submit" id="submit-btn" onclick="submitPayment()" style="display:none;">
+          Submit Payment Proof
+        </button>
+
+        <p class="modal-note">Your Telegram handle is only used to deliver your link. All purchases are final. Links expire after 48 hours.</p>
       </div>
-
-      <!-- TELEGRAM STARS INSTRUCTIONS -->
-      <div class="payment-panel" id="panel-telegram">
-        <div class="payment-step">
-          <div class="step-num">1</div>
-          <div class="step-text">
-            <div class="step-title">Open the Telegram bot to pay with Stars</div>
-            <div class="step-detail">Tap the button below to open the payment bot directly inside Telegram</div>
-            <a href="#" id="telegram-bot-link" target="_blank" style="display: inline-block; margin-top: 0.6rem; background: #0088cc; color: #fff; padding: 0.6rem 1.25rem; font-size: 0.78rem; text-decoration: none; letter-spacing: 0.1em;">Open in Telegram →</a>
-          </div>
-        </div>
-        <div class="payment-step">
-          <div class="step-num">2</div>
-          <div class="step-text">
-            <div class="step-title">Pay with Telegram Stars</div>
-            <div class="step-detail">The bot will send you a payment invoice. Tap Pay — your Stars are deducted instantly.</div>
-          </div>
-        </div>
-        <div class="payment-step">
-          <div class="step-num">3</div>
-          <div class="step-text">
-            <div class="step-title">Get your download link instantly</div>
-            <div class="step-detail">The bot sends your unique link the moment payment is confirmed. No waiting.</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Submit (not shown for Telegram Stars) -->
-      <button class="btn-submit" id="submit-btn" onclick="submitPayment()" style="display: none;">
-        Submit Payment Proof
-      </button>
-
-      <p class="modal-note">Your Telegram handle is only used to deliver your link and is not stored. All purchases are final. Links expire after 48 hours.</p>
-    </div>
     </div>
 
-    <!-- Success state -->
     <div class="success-panel" id="success-panel">
       <div class="success-icon">
         <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
@@ -1254,7 +1170,6 @@
   async function loadContent() {
     const freeGrid = document.getElementById('free-content-grid');
     const lockedGrid = document.getElementById('locked-content-grid');
-
     try {
       const res = await fetch(`${API_BASE}/api/content`);
       if (!res.ok) throw new Error('Failed to load');
@@ -1307,9 +1222,9 @@
         }).join('');
       }
 
-      if (lockedItems.length > 0) {
-        document.querySelectorAll('.stats-row .stat-num')[0].textContent = lockedItems.length + '+';
-      }
+      const statCount = document.getElementById('stat-count');
+      if (statCount && lockedItems.length > 0) statCount.textContent = lockedItems.length + '+';
+
     } catch (err) {
       freeGrid.innerHTML = '<div class="thumb-placeholder" style="grid-column:1/-1;padding:3rem;">Unable to load content.</div>';
       lockedGrid.innerHTML = '';
@@ -1319,7 +1234,7 @@
 
   function openFreeItem(id) {
     const item = allContent.find(c => c.id === id);
-    if (item?.file_url) {
+    if (item && item.file_url) {
       window.open(item.file_url, '_blank');
     } else {
       alert('Content coming soon');
@@ -1328,7 +1243,7 @@
 
   function openModal(itemId) {
     currentItem = allContent.find(c => c.id === itemId);
-    if (!currentItem) return;
+    if (!currentItem) { alert('Item not found'); return; }
 
     const price = formatPrice(currentItem.price_usd);
     document.getElementById('modal-item-name').textContent = currentItem.title;
@@ -1337,7 +1252,6 @@
     document.getElementById('modal-subtitle').textContent = 'Choose your payment method';
     document.getElementById('modal-form-area').style.display = 'block';
     document.getElementById('success-panel').classList.remove('active');
-    document.getElementById('modal-overlay').classList.add('open');
     document.getElementById('binance-tx').value = '';
     document.getElementById('paypal-tx').value = '';
     document.getElementById('tg-handle').value = '';
@@ -1348,11 +1262,12 @@
     submitBtn.style.display = 'none';
     submitBtn.disabled = false;
     submitBtn.textContent = 'Submit Payment Proof';
-    document.getElementById('telegram-bot-link').href = `https://t.me/VelaFitnessBot?start=buy_${itemId}`;
+    document.getElementById('modal-overlay').classList.add('open');
   }
 
   function closeModal() {
     document.getElementById('modal-overlay').classList.remove('open');
+    currentItem = null;
   }
 
   function closeModalOutside(e) {
@@ -1364,14 +1279,17 @@
     document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
     const panel = document.getElementById('panel-' + method);
     if (panel) panel.classList.add('active');
-    const label = document.querySelector('input[value="' + method + '"]').closest('.payment-method');
-    if (label) label.classList.add('selected');
+    const radio = document.querySelector('input[value="' + method + '"]');
+    if (radio) {
+      radio.checked = true;
+      radio.closest('.payment-method').classList.add('selected');
+    }
     if (currentItem) {
       const price = formatPrice(currentItem.price_usd);
-      document.getElementById('binance-amount').textContent = price.replace('$', '') + ' USDT';
+      document.getElementById('binance-amount').textContent = price.replace('$','') + ' USDT';
       document.getElementById('paypal-amount').textContent = price;
     }
-    document.getElementById('submit-btn').style.display = method === 'telegram' ? 'none' : 'block';
+    document.getElementById('submit-btn').style.display = 'block';
   }
 
   function copyText(elId, fallback) {
@@ -1392,15 +1310,11 @@
     const tg = document.getElementById('tg-handle').value.trim();
     if (!tg) { alert('Please enter your Telegram username so we can send your link.'); return; }
 
-    const paymentMethod = method.value === 'telegram' ? 'telegram_stars' : method.value;
     const txId = method.value === 'binance'
       ? document.getElementById('binance-tx').value.trim()
       : document.getElementById('paypal-tx').value.trim();
 
-    if (method.value !== 'telegram' && !txId) {
-      alert('Please paste your Transaction ID.');
-      return;
-    }
+    if (!txId) { alert('Please paste your Transaction ID.'); return; }
 
     const submitBtn = document.getElementById('submit-btn');
     submitBtn.disabled = true;
@@ -1412,8 +1326,8 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           content_item_id: currentItem.id,
-          payment_method: paymentMethod,
-          transaction_id: txId || null,
+          payment_method: method.value,
+          transaction_id: txId,
           telegram_handle: tg,
         }),
       });
