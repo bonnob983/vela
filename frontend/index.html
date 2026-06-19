@@ -518,13 +518,14 @@
   }
 
   .modal {
-    background: var(--bg2);
+    background: var(--surface);
     border: 1px solid var(--border-strong);
     width: 100%;
     max-width: 520px;
     max-height: 90vh;
     overflow-y: auto;
     position: relative;
+    z-index: 1001;
   }
 
   .modal-header {
@@ -533,6 +534,7 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    color: var(--text);
   }
 
   .modal-title {
@@ -562,7 +564,7 @@
 
   .modal-close:hover { color: var(--text); }
 
-  .modal-body { padding: 2rem; }
+  .modal-body { padding: 2rem; color: var(--text); }
 
   .modal-item-preview {
     display: flex;
@@ -618,7 +620,8 @@
     align-items: center;
     gap: 1rem;
     transition: border-color 0.2s, background 0.2s;
-    background: var(--bg2);
+    background: var(--surface);
+    color: var(--text);
   }
 
   .payment-method:hover, .payment-method.selected {
@@ -670,6 +673,7 @@
     padding: 1.5rem;
     background: var(--surface);
     margin-bottom: 1.5rem;
+    color: var(--text);
   }
 
   .payment-panel.active { display: block; }
