@@ -1,0 +1,4 @@
+[[redirects]]
+  from = "/download/*"
+  to = "/download.html"
+  status = 200
