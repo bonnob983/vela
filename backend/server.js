@@ -18,13 +18,7 @@ const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5500';
 const allowedOrigins = frontendUrl.split(',').map((u) => u.trim());
 
 app.use(cors({
-  origin(origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: true,
   credentials: true,
 }));
 
