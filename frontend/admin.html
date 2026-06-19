@@ -174,9 +174,7 @@
 </div>
 
 <script>
-  const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-    ? 'http://vela-production-f18d.up.railway.app'
-    : 'https://vela-production-f18d.up.railway.app';
+  const API_BASE = 'https://vela-production-f18d.up.railway.app';
 
   let adminToken = localStorage.getItem('vela_admin_token');
   let ordersInterval = null;
