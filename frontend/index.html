@@ -518,8 +518,9 @@
   }
 
   .modal {
-    background: var(--surface);
-    border: 1px solid var(--border-strong);
+    background: #1A1409;
+    color: #EDE5D0;
+    border: 1px solid rgba(201,168,76,0.35);
     width: 100%;
     max-width: 520px;
     max-height: 90vh;
@@ -529,12 +530,13 @@
   }
 
   .modal-header {
+    background: #1A1409;
+    color: #EDE5D0;
     padding: 2rem 2rem 1.5rem;
     border-bottom: 1px solid var(--border);
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    color: var(--text);
   }
 
   .modal-title {
@@ -553,9 +555,10 @@
   .modal-close {
     background: none;
     border: none;
-    color: var(--text-muted);
+    color: #EDE5D0;
     cursor: pointer;
-    font-size: 1.5rem;
+    font-size: 2rem;
+    font-weight: bold;
     line-height: 1;
     padding: 0;
     flex-shrink: 0;
@@ -564,7 +567,7 @@
 
   .modal-close:hover { color: var(--text); }
 
-  .modal-body { padding: 2rem; color: var(--text); }
+  .modal-body { background: #1A1409; color: #EDE5D0; padding: 2rem; }
 
   .modal-item-preview {
     display: flex;
@@ -1316,7 +1319,11 @@
 
   function openFreeItem(id) {
     const item = allContent.find(c => c.id === id);
-    if (item?.file_url) window.open(item.file_url, '_blank');
+    if (item?.file_url) {
+      window.open(item.file_url, '_blank');
+    } else {
+      alert('Content coming soon');
+    }
   }
 
   function openModal(itemId) {
@@ -1341,7 +1348,7 @@
     submitBtn.style.display = 'none';
     submitBtn.disabled = false;
     submitBtn.textContent = 'Submit Payment Proof';
-    document.getElementById('telegram-bot-link').href = `https://t.me/YOUR_BOT_USERNAME?start=buy_${itemId}`;
+    document.getElementById('telegram-bot-link').href = `https://t.me/VelaFitnessBot?start=buy_${itemId}`;
   }
 
   function closeModal() {
