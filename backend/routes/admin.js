@@ -66,6 +66,40 @@ router.post('/models', upload.single('cover_photo'), async (req, res) => {
   }
 });
 
+router.patch('/models/:id', upload.single('cover_photo'), async (req, res) => {
+  try {
+    const { name, bio } = req.body;
+    const updates = {};
+
+    if (name !== undefined) {
+      updates.name = sanitizeText(name, 100);
+    }
+    if (bio !== undefined) {
+      updates.bio = sanitizeText(bio, 500);
+    }
+    if (req.file) {
+      updates.cover_photo = await uploadFile(req.file.buffer, req.file.originalname, req.file.mimetype);
+    }
+
+    const { data: model, error } = await supabase
+      .from('models')
+      .update(updates)
+      .eq('id', req.params.id)
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    res.json({
+      ...model,
+      cover_photo_url: model.cover_photo ? await getThumbnailUrl(model.cover_photo) : null,
+    });
+  } catch (err) {
+    console.error('PATCH /api/admin/models/:id error:', err.message);
+    res.status(500).json({ error: err.message || 'Failed to update model' });
+  }
+});
+
 router.delete('/models/:id', async (req, res) => {
   try {
     const { error } = await supabase
@@ -196,15 +230,13 @@ router.patch('/content/:id', async (req, res) => {
 
 router.delete('/content/:id', async (req, res) => {
   try {
-    const { data: item, error } = await supabase
+    const { error } = await supabase
       .from('content_items')
-      .update({ is_active: false })
-      .eq('id', req.params.id)
-      .select()
-      .single();
+      .delete()
+      .eq('id', req.params.id);
 
     if (error) throw error;
-    res.json(item);
+    res.json({ success: true });
   } catch (err) {
     console.error('DELETE /api/admin/content/:id error:', err.message);
     res.status(500).json({ error: 'Failed to delete content' });

@@ -301,6 +301,8 @@
       const res = await fetch(`${API_BASE}/api/admin/models`, { headers: headers() });
       if (res.status === 401) { logout(); return; }
       const models = await res.json();
+      // store for edit modal
+      lastModelsList = models;
 
       // Populate dropdown
       const select = document.getElementById('upload-model');
@@ -313,6 +315,7 @@
           <td>${esc(m.bio || '')}</td>
           <td>${new Date(m.created_at).toLocaleDateString()}</td>
           <td class="actions">
+            <button class="btn-sm btn-outline" onclick="openModelEditModal('${m.id}')">Edit</button>
             <button class="btn-sm btn-danger" onclick="deleteModel('${m.id}')">Delete</button>
           </td>
         </tr>
@@ -360,6 +363,50 @@
       const res = await fetch(`${API_BASE}/api/admin/models/${id}`, { method: 'DELETE', headers: headers() });
       if (res.status === 401) { logout(); return; }
       loadModels();
+    } catch (err) {
+      alert(err.message);
+    }
+  }
+
+  // Model edit functions
+  let lastModelsList = null;
+
+  function openModelEditModal(id) {
+    const model = lastModelsList?.find(m => m.id === id);
+    if (!model) return alert('Model not found');
+    document.getElementById('edit-model-id').value = model.id;
+    document.getElementById('edit-model-name').value = model.name || '';
+    document.getElementById('edit-model-bio').value = model.bio || '';
+    document.getElementById('edit-model-backdrop').style.display = 'flex';
+  }
+
+  function closeModelEditModal() {
+    document.getElementById('edit-model-backdrop').style.display = 'none';
+  }
+
+  async function submitModelEdit() {
+    const id = document.getElementById('edit-model-id').value;
+    const form = new FormData();
+    form.append('name', document.getElementById('edit-model-name').value.trim());
+    form.append('bio', document.getElementById('edit-model-bio').value.trim());
+
+    const cover = document.getElementById('edit-model-cover').files[0];
+    if (cover) form.append('cover_photo', cover);
+
+    try {
+      const res = await fetch(`${API_BASE}/api/admin/models/${id}`, {
+        method: 'PATCH',
+        headers: { 'X-Admin-Key': adminToken },
+        body: form,
+      });
+      if (res.status === 401) { logout(); return; }
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || 'Update failed');
+      }
+      closeModelEditModal();
+      loadModels();
+      alert('Model updated');
     } catch (err) {
       alert(err.message);
     }
@@ -430,7 +477,7 @@
   }
 
   async function deleteContent(id) {
-    if (!confirm('Soft-delete this content item?')) return;
+    if (!confirm('Delete this content item?')) return;
     await fetch(`${API_BASE}/api/admin/content/${id}`, { method: 'DELETE', headers: headers() });
     loadContent();
   }
@@ -556,6 +603,24 @@
     <div style="margin-top:0.75rem;display:flex;gap:0.5rem;">
       <button onclick="submitEdit()" class="btn">Save</button>
       <button onclick="closeEditModal()" class="btn-outline">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Model edit modal -->
+<div id="edit-model-backdrop" class="edit-modal-backdrop" style="display:none;">
+  <div class="edit-modal">
+    <h3>Edit model</h3>
+    <input id="edit-model-id" type="hidden" />
+    <label>Name</label>
+    <input id="edit-model-name" type="text" />
+    <label>Bio</label>
+    <textarea id="edit-model-bio" rows="3"></textarea>
+    <label>Cover photo (optional)</label>
+    <input id="edit-model-cover" type="file" accept="image/*" />
+    <div style="margin-top:0.75rem;display:flex;gap:0.5rem;">
+      <button onclick="submitModelEdit()" class="btn">Save</button>
+      <button onclick="closeModelEditModal()" class="btn-outline">Cancel</button>
     </div>
   </div>
 </div>
