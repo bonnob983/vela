@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VELA Admin</title>
+<title>TIMASAVAGEX Admin</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -84,7 +84,7 @@
 
 <div id="login-screen" class="login-wrap">
   <div class="login-box">
-    <h1>VELA</h1>
+    <h1>TIMASAVAGEX</h1>
     <p>Admin dashboard — enter your password to continue.</p>
     <label for="password">Admin password</label>
     <input type="password" id="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')login()" />
@@ -95,7 +95,7 @@
 
 <div id="dashboard">
   <header>
-    <h1>VELA ADMIN</h1>
+    <h1>TIMASAVAGEX ADMIN</h1>
     <button class="btn-outline btn-sm" onclick="logout()">Logout</button>
   </header>
   <div class="tabs">
@@ -174,9 +174,9 @@
 </div>
 
 <script>
-  const API_BASE = 'https://vela-production-f18d.up.railway.app';
+  const API_BASE = 'https://timasavagex-production-f18d.up.railway.app';
 
-  let adminToken = localStorage.getItem('vela_admin_token');
+  let adminToken = localStorage.getItem('timasavagex_admin_token');
   let ordersInterval = null;
 
   function headers() {
@@ -195,7 +195,7 @@
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Login failed');
       adminToken = data.token;
-      localStorage.setItem('vela_admin_token', adminToken);
+      localStorage.setItem('timasavagex_admin_token', adminToken);
       showDashboard();
     } catch (err) {
       document.getElementById('login-error').textContent = err.message;
@@ -203,7 +203,7 @@
   }
 
   function logout() {
-    localStorage.removeItem('vela_admin_token');
+    localStorage.removeItem('timasavagex_admin_token');
     adminToken = null;
     document.getElementById('dashboard').style.display = 'none';
     document.getElementById('login-screen').style.display = 'flex';
