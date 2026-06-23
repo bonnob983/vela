@@ -30,22 +30,19 @@ function initTelegramBot() {
   }
 
   bot = new TelegramBot(token, { polling: { autoStart: false } });
-  
-  // Add delay before starting polling to allow old instance to fully stop
-  setTimeout(() => {
-    bot.startPolling()
-      .then(() => console.log('Telegram bot polling started successfully'))
-      .catch(err => {
-        if (err.code === 409 || err.message.includes('409')) {
-          console.warn('Telegram bot polling conflict detected — another instance may be running. Bot will remain disabled.');
-          // Don't retry - let the new instance take over
-        } else {
-          console.error('Failed to start Telegram bot polling:', err.message);
-        }
-      });
-  }, 10000); // 10 second delay
-  
-  console.log('Telegram bot initialized (polling will start in 10 seconds)');
+
+  // Start polling immediately without delay
+  bot.startPolling()
+    .then(() => console.log('Telegram bot polling started successfully'))
+    .catch(err => {
+      if (err.code === 409 || err.message.includes('409')) {
+        console.warn('Telegram bot polling conflict detected — another instance may be running. Bot will remain disabled.');
+      } else {
+        console.error('Failed to start Telegram bot polling:', err.message);
+      }
+    });
+
+  console.log('Telegram bot initialized');
 
   bot.onText(/\/start(?: (.+))?/, async (msg, match) => {
     const chatId = msg.chat.id;
@@ -201,6 +198,7 @@ async function sendDownloadLink(telegramHandle, token) {
   }
 
   const url = getDownloadUrl(token);
+  const botUsername = process.env.TELEGRAM_BOT_USERNAME || 'YOUR_BOT_USERNAME';
   const message =
     `✅ Payment verified!\n\nHere is your exclusive download link:\n${url}\n\n⏳ This link expires in 48 hours and can only be used once.`;
 
@@ -219,6 +217,7 @@ async function sendDownloadLink(telegramHandle, token) {
     } catch (err2) {
       console.error(`Failed to send Telegram message to ${handle}:`, err2.message);
       console.error('Full error details:', err2.response?.body || err2);
+      console.error(`NOTE: User @${handle} must start the bot first. Ask them to open https://t.me/${botUsername}`);
       return false;
     }
   }
