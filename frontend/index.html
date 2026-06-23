@@ -178,14 +178,14 @@
     text-decoration: none;
   }
 
-  /* HERO */
+  /* HERO - SLIM VERSION */
   .hero {
-    min-height: 100vh;
+    min-height: 40vh;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 8rem 2rem 4rem;
+    padding: 6rem 2rem 3rem;
     position: relative;
     overflow: hidden;
   }
@@ -288,6 +288,228 @@
   @keyframes scroll-pulse {
     0%, 100% { opacity: 0.5; }
     50% { opacity: 1; }
+  }
+
+  /* MODELS GRID */
+  .models-section {
+    padding: 4rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .models-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  @media (max-width: 1024px) {
+    .models-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 640px) {
+    .models-grid { grid-template-columns: 1fr; }
+  }
+
+  .model-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    overflow: hidden;
+  }
+
+  .model-card:hover {
+    border-color: var(--gold);
+    background: var(--surface);
+  }
+
+  .model-photo {
+    width: 100%;
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-style: italic;
+    color: var(--text-dim);
+  }
+
+  .model-info {
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  .model-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .model-tagline {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .model-view-btn {
+    background: var(--gold);
+    color: var(--bg);
+    border: none;
+    padding: 0.6rem 1.5rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+  }
+
+  .model-view-btn:hover {
+    opacity: 0.9;
+  }
+
+  /* MODEL PAGE */
+  #homepage { display: block; }
+  #homepage.hidden { display: none; }
+
+  #model-page { display: none; }
+  #model-page.visible { display: block; }
+
+  .model-header {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--gold);
+    padding: 3rem 2rem;
+    text-align: center;
+    position: relative;
+  }
+
+  .model-header-banner {
+    height: 200px;
+    background: var(--bg3);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: -40px;
+  }
+
+  .model-profile-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--text-dim);
+  }
+
+  .model-page-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .model-bio {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    max-width: 500px;
+    margin: 0 auto 1.5rem;
+    line-height: 1.7;
+  }
+
+  .back-btn {
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    padding: 0.5rem 1rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    margin-bottom: 1rem;
+  }
+
+  .back-btn:hover {
+    color: var(--gold);
+    border-color: var(--gold);
+  }
+
+  /* MODEL TABS */
+  .model-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2rem;
+  }
+
+  .model-tab {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    padding: 1rem 2rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .model-tab:hover {
+    color: var(--gold);
+  }
+
+  .model-tab.active {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+  }
+
+  .tab-content {
+    display: none;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  .model-about-block {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    margin-top: 3rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .model-about-block h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+
+  .model-about-block p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 1rem;
   }
 
   section {
@@ -906,78 +1128,97 @@
 <div id="main-site">
 
   <nav>
-    <a href="#" class="nav-logo">TIMASAVAGEX</a>
+    <a href="#" class="nav-logo" onclick="showHomepage()">TIMASAVAGEX</a>
     <ul class="nav-links">
-      <li><a href="#free">Free</a></li>
-      <li><a href="#premium">Premium</a></li>
-      <li><a href="#about">About</a></li>
+      <li><a href="#" onclick="switchToFreeTab()">Free</a></li>
+      <li><a href="#" onclick="switchToPremiumTab()">Premium</a></li>
+      <li><a href="#" onclick="scrollToAbout()">About</a></li>
     </ul>
-    <a href="#premium" class="nav-cta">Unlock Premium</a>
+    <a href="#" onclick="switchToPremiumTab()" class="nav-cta">Unlock Premium</a>
   </nav>
 
-  <div class="hero">
-    <div style="position: relative; z-index: 1; max-width: 700px;">
-      <span class="hero-eyebrow">The Official Timasavagex Page</span>
-      <h1 class="hero-title">Unleash your<br><em>fantasies</em></h1>
-      <p class="hero-desc">Exclusive photos, videos and uncensored content you won't find anywhere else. No leaks. No fakes. Just the real Timasavagex.</p>
-      <div class="hero-btns">
-        <a href="#free" class="btn-primary">Browse Free Content</a>
-        <a href="#premium" class="btn-outline">Unlock Premium</a>
+  <!-- HOMEPAGE -->
+  <div id="homepage">
+    <div class="hero">
+      <div style="position: relative; z-index: 1; max-width: 700px;">
+        <span class="hero-eyebrow">The Official Timasavagex Page</span>
+        <h1 class="hero-title">Unleash your<br><em>fantasies</em></h1>
+        <p class="hero-desc">Exclusive photos, videos and uncensored content you won't find anywhere else. No leaks. No fakes. Just the real Timasavagex.</p>
+        <div class="hero-btns">
+          <a href="#" onclick="showModelPage('timasavagex')" class="btn-primary">Browse Models</a>
+        </div>
       </div>
     </div>
-    <div class="hero-scroll">Scroll</div>
-  </div>
 
-  <div style="max-width: 1200px; margin: 0 auto; padding: 0 3rem;">
-    <div class="stats-row">
-      <div class="stat">
-        <div class="stat-num" id="stat-count">120+</div>
-        <div class="stat-label">Premium pieces</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">3×</div>
-        <div class="stat-label">New weekly uploads</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">5yrs</div>
-        <div class="stat-label">Coaching experience</div>
-      </div>
-    </div>
-  </div>
-
-  <section id="free">
-    <span class="section-label">Free Access</span>
-    <h2 class="section-title">A taste<br>of what's inside</h2>
-    <div class="section-divider"></div>
-    <div class="content-grid" id="free-content-grid">
-      <div class="thumb-placeholder" style="grid-column:1/-1;padding:3rem;aspect-ratio:auto;">Loading content…</div>
-    </div>
-  </section>
-
-  <section id="premium" style="background: var(--bg3); max-width: 100%; padding: 6rem 0;">
     <div style="max-width: 1200px; margin: 0 auto; padding: 0 3rem;">
-      <span class="section-label">Members Only</span>
-      <h2 class="section-title">Exclusive vault</h2>
-      <div class="section-divider"></div>
-      <div class="locked-grid" id="locked-content-grid">
-        <div class="thumb-placeholder" style="grid-column:1/-1;padding:3rem;aspect-ratio:auto;">Loading premium content…</div>
+      <div class="stats-row">
+        <div class="stat">
+          <div class="stat-num" id="stat-count">120+</div>
+          <div class="stat-label">Premium pieces</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">3×</div>
+          <div class="stat-label">New weekly uploads</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">5yrs</div>
+          <div class="stat-label">Coaching experience</div>
+        </div>
       </div>
     </div>
-  </section>
 
-  <section id="about">
-    <div class="about-layout">
-      <div class="about-visual">Timasavagex</div>
-      <div class="about-text">
-        <span class="section-label">About</span>
-        <h2 class="section-title" style="margin-bottom: 1.5rem;">Real. Raw.<br>Exclusive.</h2>
-        <div class="section-divider"></div>
+    <div class="models-section">
+      <span class="section-label">Browse Models</span>
+      <h2 class="section-title">Exclusive<br>Models</h2>
+      <div class="section-divider"></div>
+      <div class="models-grid">
+        <div class="model-card" onclick="showModelPage('timasavagex')">
+          <div class="model-photo">TS</div>
+          <div class="model-info">
+            <div class="model-name">TIMASAVAGEX</div>
+            <div class="model-tagline">Exclusive · Uncensored · Real</div>
+            <button class="model-view-btn">View Profile</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODEL PAGE -->
+  <div id="model-page">
+    <div class="model-header">
+      <div class="model-header-banner"></div>
+      <button class="back-btn" onclick="showHomepage()">← All Models</button>
+      <div class="model-profile-photo">TS</div>
+      <div class="model-page-name">TIMASAVAGEX</div>
+      <div class="model-bio">The only place to get my real uncensored content. No middlemen, no restrictions — just me giving you exactly what you came for.</div>
+    </div>
+
+    <div style="max-width: 1200px; margin: 0 auto; padding: 3rem;">
+      <div class="model-tabs">
+        <button class="model-tab active" onclick="switchTab('free')">Free Content</button>
+        <button class="model-tab" onclick="switchTab('premium')">Premium Content</button>
+      </div>
+
+      <div id="tab-free" class="tab-content active">
+        <div class="content-grid" id="free-content-grid">
+          <div class="thumb-placeholder" style="grid-column:1/-1;padding:3rem;aspect-ratio:auto;">Loading content…</div>
+        </div>
+      </div>
+
+      <div id="tab-premium" class="tab-content">
+        <div class="locked-grid" id="locked-content-grid">
+          <div class="thumb-placeholder" style="grid-column:1/-1;padding:3rem;aspect-ratio:auto;">Loading premium content…</div>
+        </div>
+      </div>
+
+      <div class="model-about-block" id="model-about">
+        <h3>About</h3>
         <p>The only place to get my real uncensored content. No middlemen, no restrictions — just me giving you exactly what you came for.</p>
         <p>Subscribe to the vault and get access to exclusive photos, videos and personalized content I don't post anywhere else.</p>
-        <a href="#premium" class="btn-primary">See Premium Content</a>
       </div>
     </div>
-  </section>
+  </div>
 
   <footer>
     <div class="footer-logo">TIMASAVAGEX</div>
@@ -1144,6 +1385,55 @@
     document.getElementById('main-site').style.display = 'block';
     sessionStorage.setItem('age_verified', '1');
     loadContent();
+  }
+
+  function showHomepage() {
+    document.getElementById('homepage').classList.remove('hidden');
+    document.getElementById('model-page').classList.remove('visible');
+    window.scrollTo(0, 0);
+  }
+
+  function showModelPage(modelId) {
+    document.getElementById('homepage').classList.add('hidden');
+    document.getElementById('model-page').classList.add('visible');
+    window.scrollTo(0, 0);
+  }
+
+  function switchTab(tabName) {
+    document.querySelectorAll('.model-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    
+    document.querySelector(`.model-tab[onclick="switchTab('${tabName}')"]`).classList.add('active');
+    document.getElementById('tab-' + tabName).classList.add('active');
+  }
+
+  function switchToFreeTab() {
+    if (document.getElementById('model-page').classList.contains('visible')) {
+      switchTab('free');
+    } else {
+      showModelPage('timasavagex');
+      switchTab('free');
+    }
+  }
+
+  function switchToPremiumTab() {
+    if (document.getElementById('model-page').classList.contains('visible')) {
+      switchTab('premium');
+    } else {
+      showModelPage('timasavagex');
+      switchTab('premium');
+    }
+  }
+
+  function scrollToAbout() {
+    if (document.getElementById('model-page').classList.contains('visible')) {
+      document.getElementById('model-about').scrollIntoView({ behavior: 'smooth' });
+    } else {
+      showModelPage('timasavagex');
+      setTimeout(() => {
+        document.getElementById('model-about').scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
   }
 
   function exitSite() {
