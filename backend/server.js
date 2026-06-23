@@ -17,8 +17,8 @@ const PORT = process.env.PORT || 3000;
 const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5500';
 const allowedOrigins = frontendUrl.split(',').map((u) => u.trim());
 
-// Add Netlify admin URL to allowed origins
-const allAllowedOrigins = [...allowedOrigins, 'https://timsavagex.netlify.app', 'http://localhost:3000'];
+// Add Vercel admin URL to allowed origins
+const allAllowedOrigins = [...allowedOrigins, 'https://timasavage.vercel.app', 'http://localhost:3000'];
 
 app.use(cors({
   origin: function(origin, callback) {
