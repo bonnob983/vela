@@ -266,7 +266,509 @@
   .tab-content.active { display: block; }
   .model-about-block { background: var(--bg2); border: 1px solid var(--border); padding: 2rem; margin-top: 3rem; max-width: 800px; margin-left: auto; margin-right: auto; }
 
-  /* keep all other styles (content grid, locked grid, modal) unchanged below --- */
+  /* FREE CONTENT GRID */
+  .content-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .content-card {
+    background: var(--bg2);
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .content-thumb {
+    width: 100%;
+    aspect-ratio: 4/5;
+    background: var(--surface);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .thumb-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--text-dim);
+    text-align: center;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
+  }
+
+  .content-info {
+    padding: 1rem 1.25rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .content-tag {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.4rem;
+    display: block;
+  }
+
+  .content-name {
+    font-size: 0.9rem;
+    color: var(--text);
+    font-weight: 300;
+  }
+
+  /* LOCKED CONTENT */
+  .locked-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .locked-card {
+    background: var(--bg2);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .locked-card:hover { background: var(--surface); }
+
+  .locked-thumb {
+    width: 100%;
+    aspect-ratio: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: var(--surface);
+  }
+
+  .locked-blur {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1a1409 0%, #2a1e0a 50%, #1a1409 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .lock-icon {
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--gold-dim);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lock-icon svg {
+    width: 14px;
+    height: 14px;
+    stroke: var(--gold);
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+  }
+
+  .locked-price-badge {
+    font-size: 0.7rem;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+  }
+
+  .locked-info {
+    padding: 0.85rem 1.1rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .locked-tag {
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+
+  .locked-name {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+
+  .locked-price {
+    font-size: 0.82rem;
+    color: var(--gold);
+    font-weight: 500;
+  }
+
+  /* PAYMENT MODAL — fixed z-index above everything */
+  #modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0,0,0,0.88);
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  #modal-overlay.open { display: flex; }
+
+  .modal {
+    background: #ffffff;
+    color: #000000;
+    border: 1px solid rgba(201,168,76,0.4);
+    width: 100%;
+    max-width: 520px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    z-index: 10000;
+  }
+
+  .modal-header {
+    background: #ffffff;
+    color: #000000;
+    padding: 2rem 2rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .modal-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: #000000;
+  }
+
+  .modal-subtitle {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+  }
+
+  .modal-close {
+    background: #000000;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 1;
+    padding: 0.2rem 0.6rem;
+    flex-shrink: 0;
+    margin-left: 1rem;
+  }
+
+  .modal-body {
+    background: #ffffff;
+    color: #000000;
+    padding: 2rem;
+  }
+
+  .modal-item-preview {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: #211A0C;
+    border: 1px solid var(--border);
+    margin-bottom: 1.5rem;
+  }
+
+  .preview-thumb {
+    width: 56px;
+    height: 56px;
+    background: #2a1e0a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .preview-thumb svg {
+    width: 20px; height: 20px;
+    stroke: var(--gold-dim); fill: none; stroke-width: 1.5;
+  }
+
+  .preview-info { flex: 1; }
+  .preview-name { font-size: 0.85rem; color: #EDE5D0; margin-bottom: 0.15rem; }
+  .preview-type { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); }
+  .preview-price { font-size: 1.1rem; color: var(--gold); font-weight: 500; }
+
+  .payment-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .payment-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .payment-method {
+    border: 1px solid var(--border);
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: border-color 0.2s;
+    background: #f5f5f5;
+    color: #000000;
+  }
+
+  .payment-method:hover, .payment-method.selected { border-color: var(--gold); }
+
+  .payment-method input[type="radio"] {
+    accent-color: var(--gold);
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  .method-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+
+  .method-icon.binance { background: #F0B90B22; }
+  .method-icon.paypal { background: #003087; }
+  .method-icon.telegram { background: #0088cc22; }
+
+  .method-info { flex: 1; }
+  .method-name { font-size: 0.85rem; color: #EDE5D0; font-weight: 400; margin-bottom: 0.1rem; }
+  .method-desc { font-size: 0.7rem; color: var(--text-muted); }
+
+  .method-badge {
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid;
+    flex-shrink: 0;
+  }
+
+  .badge-anon { color: var(--gold); border-color: var(--gold-dim); }
+  .badge-fast { color: #5cd85c; border-color: #2a602a; }
+
+  .payment-panel {
+    display: none;
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    background: #f5f5f5;
+    margin-bottom: 1.5rem;
+    color: #000000;
+  }
+
+  .payment-panel.active { display: block; }
+
+  .payment-step {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    align-items: flex-start;
+  }
+
+  .payment-step:last-child { margin-bottom: 0; }
+
+  .step-num {
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--gold-dim);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    color: var(--gold);
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+  }
+
+  .step-text { flex: 1; }
+  .step-title { font-size: 0.82rem; color: #000000; margin-bottom: 0.25rem; }
+  .step-detail { font-size: 0.75rem; color: #333333; line-height: 1.6; }
+
+  .copy-field {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #0A0806;
+    border: 1px solid var(--border);
+    padding: 0.6rem 0.85rem;
+    margin-top: 0.5rem;
+  }
+
+  .copy-field code {
+    font-size: 0.78rem;
+    color: var(--gold);
+    font-family: 'Courier New', monospace;
+    flex: 1;
+    word-break: break-all;
+  }
+
+  .copy-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    padding: 0;
+  }
+
+  .copy-btn:hover { color: var(--gold); }
+
+  .tx-input-wrap { margin-top: 1rem; }
+  .tx-label { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.1em; margin-bottom: 0.5rem; display: block; }
+
+  .tx-input {
+    width: 100%;
+    background: #0A0806;
+    border: 1px solid var(--border);
+    color: #EDE5D0;
+    padding: 0.7rem 0.9rem;
+    font-size: 0.82rem;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+  }
+
+  .tx-input:focus { border-color: var(--gold-dim); }
+  .tx-input::placeholder { color: var(--text-dim); }
+
+  .btn-submit {
+    width: 100%;
+    background: var(--gold);
+    color: #0A0806;
+    border: none;
+    padding: 1rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    margin-top: 1.5rem;
+  }
+
+  .modal-note {
+    font-size: 0.68rem;
+    color: var(--text-dim);
+    line-height: 1.7;
+    text-align: center;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .success-panel {
+    display: none;
+    text-align: center;
+    padding: 2.5rem;
+    background: #1A1409;
+    color: #EDE5D0;
+  }
+
+  .success-panel.active { display: block; }
+
+  .success-icon {
+    width: 56px;
+    height: 56px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+  }
+
+  .success-icon svg {
+    width: 22px; height: 22px;
+    stroke: var(--gold); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+  }
+
+  .success-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    color: #EDE5D0;
+    margin-bottom: 0.75rem;
+  }
+
+  .success-msg {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 3rem;
+    text-align: center;
+  }
+
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--gold);
+    letter-spacing: 0.3em;
+    margin-bottom: 1rem;
+  }
+
+  .footer-note {
+    font-size: 0.68rem;
+    color: var(--text-dim);
+    line-height: 1.8;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.25rem; }
+    .nav-links { display: none; }
+    .models-section { padding: 4rem 1.25rem; }
+    .modal { max-height: 100vh; }
+    .modal-header, .modal-body { padding: 1.25rem; }
+  }
 </style>
 </head>
 <body>
@@ -381,16 +883,87 @@
     </div>
     <div id="modal-form-area">
       <div class="modal-body">
-
         <div class="modal-item-preview">
-          <!-- existing modal content preserved -->
+          <div class="preview-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></div>
+          <div class="preview-info">
+            <div class="preview-name" id="preview-name">Content Title</div>
+            <div class="preview-type" id="preview-type">Type</div>
+            <div class="preview-price" id="preview-price">$0.00</div>
+          </div>
         </div>
 
+        <span class="payment-label">Select Payment Method</span>
+        <div class="payment-methods" id="payment-methods">
+          <div class="payment-method" onclick="selectPayment('binance')">
+            <input type="radio" name="payment" value="binance" id="binance-radio">
+            <div class="method-icon binance">₿</div>
+            <div class="method-info">
+              <div class="method-name">Binance Pay</div>
+              <div class="method-desc">Fast crypto payment</div>
+            </div>
+            <div class="method-badge badge-fast">INSTANT</div>
+          </div>
+
+          <div class="payment-method" onclick="selectPayment('telegram')">
+            <input type="radio" name="payment" value="telegram" id="telegram-radio">
+            <div class="method-icon telegram">✈️</div>
+            <div class="method-info">
+              <div class="method-name">Telegram Stars</div>
+              <div class="method-desc">Secure telegram payment</div>
+            </div>
+            <div class="method-badge badge-fast">INSTANT</div>
+          </div>
+        </div>
+
+        <div id="payment-panel-binance" class="payment-panel">
+          <div class="payment-step">
+            <div class="step-num">1</div>
+            <div class="step-text">
+              <div class="step-title">Copy Payment Address</div>
+              <div class="step-detail">Use the address below to complete payment. Include your order ID in the transaction memo.</div>
+              <div class="copy-field">
+                <code id="binance-address">UQBjF3K...</code>
+                <button class="copy-btn" onclick="copyToClipboard('binance-address')">Copy</button>
+              </div>
+            </div>
+          </div>
+          <div class="payment-step">
+            <div class="step-num">2</div>
+            <div class="step-text">
+              <div class="step-title">Send Payment</div>
+              <div class="step-detail">Send exactly <strong id="amount-display">$0.00</strong> USDT to the address above.</div>
+            </div>
+          </div>
+          <div class="payment-step">
+            <div class="step-num">3</div>
+            <div class="step-text">
+              <div class="step-title">Enter Transaction Hash</div>
+              <div class="step-detail">After sending, paste your transaction hash below so we can verify payment.</div>
+              <div class="tx-input-wrap">
+                <label class="tx-label">Transaction Hash (TX ID)</label>
+                <input type="text" class="tx-input" id="tx-hash" placeholder="0x123abc..." maxlength="100">
+              </div>
+            </div>
+          </div>
+          <button class="btn-submit" onclick="submitPayment('binance')">Verify Payment</button>
+        </div>
+
+        <div id="payment-panel-telegram" class="payment-panel">
+          <div class="payment-step">
+            <div class="step-num">1</div>
+            <div class="step-text">
+              <div class="step-title">Click to Open Telegram</div>
+              <div class="step-detail">We'll send you a payment link via Telegram. Use Telegram Stars to complete the purchase instantly.</div>
+            </div>
+          </div>
+          <button class="btn-submit" onclick="initiateTelepayment()">Open Telegram Payment</button>
+        </div>
+
+        <div class="modal-note">
+          All payments are processed securely. Your content will be delivered instantly to your Telegram after payment confirmation.
+        </div>
       </div>
-
-      <!-- modal footer and forms are preserved here (unchanged) -->
     </div>
-
   </div>
 </div>
 
@@ -460,14 +1033,133 @@
     window.location.href = 'https://www.google.com';
   }
 
+  async function loadContent() {
+    try {
+      const res = await fetch(`${API_BASE}/api/content`);
+      if (!res.ok) throw new Error('Failed to fetch content');
+      allContent = await res.json();
+      
+      const freeContent = allContent.filter(item => item.is_free);
+      document.getElementById('free-content-grid').innerHTML = freeContent.map(item => `
+        <div class="content-card" onclick="openFreeItem('${item.id}')">
+          <div class="content-thumb">
+            <img src="${item.thumbnail_url}" alt="${item.title}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='<div class=thumb-placeholder>${item.title}</div>'">
+          </div>
+          <div class="content-info">
+            <span class="content-tag">${item.type_label}</span>
+            <div class="content-name">${item.title}</div>
+          </div>
+        </div>
+      `).join('');
+
+      const premiumContent = allContent.filter(item => !item.is_free);
+      document.getElementById('locked-content-grid').innerHTML = premiumContent.map(item => `
+        <div class="locked-card" onclick="showPaymentModal('${item.id}', '${item.title}', ${item.price_usd})">
+          <div class="locked-thumb">
+            <div class="locked-blur">
+              <div class="lock-icon"><svg viewBox="0 0 24 24"><rect x="3" y="10" width="18" height="10" rx="2"/><path d="M7 10V6a5 5 0 0110 0v4"/></svg></div>
+              <div class="locked-price-badge">$${parseFloat(item.price_usd).toFixed(2)}</div>
+            </div>
+          </div>
+          <div class="locked-info">
+            <div>
+              <span class="locked-tag">${item.type_label}</span>
+              <div class="locked-name">${item.title}</div>
+            </div>
+            <div class="locked-price">$${parseFloat(item.price_usd).toFixed(2)}</div>
+          </div>
+        </div>
+      `).join('');
+    } catch (err) {
+      console.error('Content loading error:', err);
+      document.getElementById('free-content-grid').innerHTML = '<div class="thumb-placeholder" style="grid-column:1/-1;">Error loading content</div>';
+    }
+  }
+
+  function openFreeItem(itemId) {
+    const item = allContent.find(i => i.id === itemId);
+    if (item && item.file_url) {
+      window.open(item.file_url, '_blank');
+    }
+  }
+
+  function showPaymentModal(itemId, title, price) {
+    currentItem = { id: itemId, title, price: parseFloat(price) };
+    document.getElementById('preview-name').textContent = title;
+    document.getElementById('preview-price').textContent = '$' + price.toFixed(2);
+    document.getElementById('preview-type').textContent = 'Premium Content';
+    document.getElementById('amount-display').textContent = '$' + price.toFixed(2);
+    document.getElementById('modal-overlay').classList.add('open');
+    document.getElementById('tx-hash').value = '';
+  }
+
+  function closeModal() {
+    document.getElementById('modal-overlay').classList.remove('open');
+    currentItem = null;
+  }
+
+  function closeModalOutside(event) {
+    if (event.target === document.getElementById('modal-overlay')) {
+      closeModal();
+    }
+  }
+
+  function selectPayment(method) {
+    document.querySelectorAll('.payment-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById(`payment-panel-${method}`).classList.add('active');
+    document.getElementById(`${method}-radio`).checked = true;
+  }
+
+  function copyToClipboard(elementId) {
+    const element = document.getElementById(elementId);
+    const text = element.textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = event.target;
+      const original = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(() => { btn.textContent = original; }, 2000);
+    });
+  }
+
+  async function submitPayment(method) {
+    if (!currentItem) return;
+    const txHash = document.getElementById('tx-hash').value.trim();
+    if (!txHash) { alert('Please enter transaction hash'); return; }
+    
+    try {
+      const res = await fetch(`${API_BASE}/api/orders`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          item_id: currentItem.id,
+          amount_usd: currentItem.price,
+          payment_method: method,
+          tx_hash: txHash,
+          telegram_username: prompt('Enter your Telegram username (for content delivery):')
+        })
+      });
+      if (!res.ok) throw new Error('Payment submission failed');
+      const data = await res.json();
+      alert('Payment submitted! We\'ll verify and send your content to Telegram shortly.');
+      closeModal();
+    } catch (err) {
+      alert('Error: ' + err.message);
+    }
+  }
+
+  function initiateTelepayment() {
+    if (!currentItem) return;
+    const telegramId = prompt('Enter your Telegram User ID:');
+    if (!telegramId) return;
+    alert('Please complete payment via Telegram. Your content will be delivered after verification.');
+    closeModal();
+  }
+
   if (sessionStorage.getItem('age_verified')) {
     document.getElementById('age-gate').style.display = 'none';
     document.getElementById('main-site').style.display = 'block';
     loadContent();
   }
-
-  // existing content loading and payment functions remain unchanged below
-
 </script>
 
 </body>
