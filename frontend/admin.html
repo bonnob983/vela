@@ -102,6 +102,7 @@
   </header>
   <div class="tabs">
     <button class="tab active" onclick="switchTab('content')">Content</button>
+    <button class="tab" onclick="switchTab('models')">Models</button>
     <button class="tab" onclick="switchTab('orders')">Orders</button>
   </div>
   <main>
@@ -110,8 +111,10 @@
         <h3>Upload new content</h3>
         <div class="form-row">
           <div>
-            <label>Title</label>
-            <input type="text" id="upload-title" />
+            <label>Model</label>
+            <select id="upload-model">
+              <option value="">Select model</option>
+            </select>
           </div>
           <div>
             <label>Type</label>
@@ -121,6 +124,12 @@
               <option value="pdf">PDF</option>
               <option value="call">Call</option>
             </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div>
+            <label>Title</label>
+            <input type="text" id="upload-title" />
           </div>
         </div>
         <label>Description</label>
@@ -153,6 +162,31 @@
           <tr><th>Title</th><th>Type</th><th>Price</th><th>Free</th><th>Active</th><th>Actions</th></tr>
         </thead>
         <tbody id="content-table"></tbody>
+      </table>
+    </div>
+
+    <div id="panel-models" class="panel">
+      <div class="upload-form">
+        <h3>Add new model</h3>
+        <div class="form-row">
+          <div>
+            <label>Name</label>
+            <input type="text" id="model-name" />
+          </div>
+          <div>
+            <label>Cover photo</label>
+            <input type="file" id="model-cover" accept="image/*" />
+          </div>
+        </div>
+        <label>Bio</label>
+        <textarea id="model-bio" rows="2"></textarea>
+        <button onclick="uploadModel()">Add model</button>
+      </div>
+      <table>
+        <thead>
+          <tr><th>Name</th><th>Bio</th><th>Created</th><th>Actions</th></tr>
+        </thead>
+        <tbody id="models-table"></tbody>
       </table>
     </div>
 
@@ -217,6 +251,7 @@
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('dashboard').style.display = 'block';
     loadContent();
+    loadModels();
     loadOrders();
     ordersInterval = setInterval(loadOrders, 30000);
   }
@@ -261,6 +296,75 @@
     }
   }
 
+  async function loadModels() {
+    try {
+      const res = await fetch(`${API_BASE}/api/admin/models`, { headers: headers() });
+      if (res.status === 401) { logout(); return; }
+      const models = await res.json();
+
+      // Populate dropdown
+      const select = document.getElementById('upload-model');
+      select.innerHTML = '<option value="">Select model</option>' + models.map(m => `<option value="${m.id}">${esc(m.name)}</option>`).join('');
+
+      // Populate table
+      document.getElementById('models-table').innerHTML = models.map(m => `
+        <tr>
+          <td>${esc(m.name)}</td>
+          <td>${esc(m.bio || '')}</td>
+          <td>${new Date(m.created_at).toLocaleDateString()}</td>
+          <td class="actions">
+            <button class="btn-sm btn-danger" onclick="deleteModel('${m.id}')">Delete</button>
+          </td>
+        </tr>
+      `).join('');
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  async function uploadModel() {
+    const name = document.getElementById('model-name').value.trim();
+    if (!name) { alert('Name required'); return; }
+
+    const form = new FormData();
+    form.append('name', name);
+    form.append('bio', document.getElementById('model-bio').value);
+
+    const cover = document.getElementById('model-cover').files[0];
+    if (cover) form.append('cover_photo', cover);
+
+    try {
+      const res = await fetch(`${API_BASE}/api/admin/models`, {
+        method: 'POST',
+        headers: { 'X-Admin-Key': adminToken },
+        body: form,
+      });
+      if (res.status === 401) { logout(); return; }
+      if (!res.ok) {
+        const err = await res.json();
+        alert(err.error || 'Upload failed');
+        return;
+      }
+      document.getElementById('model-name').value = '';
+      document.getElementById('model-bio').value = '';
+      document.getElementById('model-cover').value = '';
+      loadModels();
+    } catch (err) {
+      alert(err.message);
+    }
+  }
+
+  async function deleteModel(id) {
+    if (!confirm('Delete this model?')) return;
+    try {
+      const res = await fetch(`${API_BASE}/api/admin/models/${id}`, { method: 'DELETE', headers: headers() });
+      if (res.status === 401) { logout(); return; }
+      loadModels();
+    } catch (err) {
+      alert(err.message);
+    }
+  }
+
   async function uploadContent() {
     const title = document.getElementById('upload-title').value.trim();
     if (!title) { alert('Title required'); return; }
@@ -271,6 +375,7 @@
     form.append('type', document.getElementById('upload-type').value);
     form.append('is_free', document.getElementById('upload-free').checked);
     form.append('price_usd', document.getElementById('upload-price').value);
+    form.append('model_id', document.getElementById('upload-model').value);
 
     const file = document.getElementById('upload-file').files[0];
     const thumb = document.getElementById('upload-thumb').files[0];

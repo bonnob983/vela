@@ -1,8 +1,17 @@
 -- VELA Database Schema
 -- Run this in the Supabase SQL Editor
 
+CREATE TABLE IF NOT EXISTS models (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name TEXT NOT NULL,
+  bio TEXT,
+  cover_photo TEXT,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+
 CREATE TABLE IF NOT EXISTS content_items (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  model_id UUID REFERENCES models(id),
   title TEXT NOT NULL,
   description TEXT,
   type TEXT NOT NULL,

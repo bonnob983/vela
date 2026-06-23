@@ -808,22 +808,15 @@
         <h1 class="hero-title">Unleash your<br><em>fantasies</em></h1>
         <p class="hero-desc">Exclusive photos, videos and uncensored content you won't find anywhere else. No leaks. No fakes. Just the real Timasavagex.</p>
         <div class="hero-btns">
-          <a href="#" onclick="showModelPage('timasavagex')" class="btn-primary">Browse Models</a>
+          <a href="#" onclick="document.querySelector('.models-section').scrollIntoView({behavior:'smooth'})" class="btn-primary">Browse Models</a>
         </div>
       </div>
     </div>
 
     <div class="models-section">
       <h2 class="section-title">Browse Models</h2>
-      <div class="models-grid">
-        <div class="model-card" onclick="showModelPage('timasavagex')">
-          <div class="model-photo">TS</div>
-          <div class="model-info">
-            <div class="model-name">TIMASAVAGEX</div>
-            <div class="model-tagline">Exclusive · Uncensored · Real</div>
-            <button class="model-view-btn">View Profile</button>
-          </div>
-        </div>
+      <div class="models-grid" id="models-grid">
+        <div class="thumb-placeholder" style="grid-column:1/-1;padding:3rem;">Loading models…</div>
       </div>
     </div>
   </div>
@@ -833,9 +826,9 @@
     <div class="model-header">
       <div class="model-header-banner"></div>
       <button class="back-btn" onclick="showHomepage()">← All Models</button>
-      <div class="model-profile-photo">TS</div>
-      <div class="model-page-name">TIMASAVAGEX</div>
-      <div class="model-bio">The only place to get my real uncensored content. No middlemen, no restrictions — just me giving you exactly what you came for.</div>
+      <div class="model-profile-photo" id="model-page-photo">TS</div>
+      <div class="model-page-name" id="model-page-name">TIMASAVAGEX</div>
+      <div class="model-bio" id="model-page-bio">The only place to get my real uncensored content. No middlemen, no restrictions — just me giving you exactly what you came for.</div>
     </div>
 
     <div style="max-width: 1200px; margin: 0 auto; padding: 3rem;">
@@ -975,11 +968,14 @@
 
   let currentItem = null;
   let allContent = [];
+  let allModels = [];
+  let currentModelId = null;
 
   function enterSite() {
     document.getElementById('age-gate').style.display = 'none';
     document.getElementById('main-site').style.display = 'block';
     sessionStorage.setItem('age_verified', '1');
+    loadModels();
     loadContent();
   }
 
@@ -990,9 +986,20 @@
   }
 
   function showModelPage(modelId) {
+    currentModelId = modelId;
+    const model = allModels.find(m => m.id === modelId);
+    if (model) {
+      document.getElementById('model-page-name').textContent = model.name;
+      document.getElementById('model-page-bio').textContent = model.bio || '';
+      document.getElementById('model-page-photo').textContent = model.name.substring(0, 2).toUpperCase();
+      if (model.cover_photo_url) {
+        document.getElementById('model-page-photo').innerHTML = `<img src="${model.cover_photo_url}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
+      }
+    }
     document.getElementById('homepage').classList.add('hidden');
     document.getElementById('model-page').classList.add('visible');
     window.scrollTo(0, 0);
+    loadContent();
   }
 
   function switchTab(tabName) {
@@ -1004,28 +1011,33 @@
   }
 
   function switchToFreeTab() {
-    if (document.getElementById('model-page').classList.contains('visible')) {
+    if (currentModelId) {
+      showModelPage(currentModelId);
       switchTab('free');
-    } else {
-      showModelPage('timasavagex');
+    } else if (allModels.length > 0) {
+      showModelPage(allModels[0].id);
       switchTab('free');
     }
   }
 
   function switchToPremiumTab() {
-    if (document.getElementById('model-page').classList.contains('visible')) {
+    if (currentModelId) {
+      showModelPage(currentModelId);
       switchTab('premium');
-    } else {
-      showModelPage('timasavagex');
+    } else if (allModels.length > 0) {
+      showModelPage(allModels[0].id);
       switchTab('premium');
     }
   }
 
   function scrollToAbout() {
-    if (document.getElementById('model-page').classList.contains('visible')) {
-      document.getElementById('model-about').scrollIntoView({ behavior: 'smooth' });
-    } else {
-      showModelPage('timasavagex');
+    if (currentModelId) {
+      showModelPage(currentModelId);
+      setTimeout(() => {
+        document.getElementById('model-about').scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else if (allModels.length > 0) {
+      showModelPage(allModels[0].id);
       setTimeout(() => {
         document.getElementById('model-about').scrollIntoView({ behavior: 'smooth' });
       }, 100);
@@ -1036,9 +1048,36 @@
     window.location.href = 'https://www.google.com';
   }
 
+  async function loadModels() {
+    try {
+      const res = await fetch(`${API_BASE}/api/models`);
+      if (!res.ok) throw new Error('Failed to fetch models');
+      allModels = await res.json();
+
+      document.getElementById('models-grid').innerHTML = allModels.map(model => `
+        <div class="model-card" onclick="showModelPage('${model.id}')">
+          <div class="model-photo">
+            ${model.cover_photo_url 
+              ? `<img src="${model.cover_photo_url}" style="width:100%;height:100%;object-fit:cover;">` 
+              : model.name.substring(0, 2).toUpperCase()}
+          </div>
+          <div class="model-info">
+            <div class="model-name">${model.name}</div>
+            <div class="model-tagline">Exclusive · Uncensored · Real</div>
+            <button class="model-view-btn">View Profile</button>
+          </div>
+        </div>
+      `).join('');
+    } catch (err) {
+      console.error(err);
+      document.getElementById('models-grid').innerHTML = '<div style="grid-column:1/-1;padding:3rem;">Failed to load models</div>';
+    }
+  }
+
   async function loadContent() {
     try {
-      const res = await fetch(`${API_BASE}/api/content`);
+      const url = currentModelId ? `${API_BASE}/api/content?model_id=${currentModelId}` : `${API_BASE}/api/content`;
+      const res = await fetch(url);
       if (!res.ok) throw new Error('Failed to fetch content');
       allContent = await res.json();
       

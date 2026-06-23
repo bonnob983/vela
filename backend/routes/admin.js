@@ -15,6 +15,72 @@ router.post('/login', (req, res) => {
 
 router.use(adminAuth);
 
+// Model management
+router.get('/models', async (req, res) => {
+  try {
+    const { data: models, error } = await supabase
+      .from('models')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+    res.json(models);
+  } catch (err) {
+    console.error('GET /api/admin/models error:', err.message);
+    res.status(500).json({ error: 'Failed to fetch models' });
+  }
+});
+
+router.post('/models', upload.single('cover_photo'), async (req, res) => {
+  try {
+    const { name, bio } = req.body;
+
+    if (!name) {
+      return res.status(400).json({ error: 'Name is required' });
+    }
+
+    let coverPhotoPath = null;
+    if (req.file) {
+      coverPhotoPath = await uploadFile(req.file.buffer, req.file.originalname, req.file.mimetype);
+    }
+
+    const { data: model, error } = await supabase
+      .from('models')
+      .insert({
+        name: sanitizeText(name, 100),
+        bio: sanitizeText(bio, 500),
+        cover_photo: coverPhotoPath,
+      })
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    res.status(201).json({
+      ...model,
+      cover_photo_url: coverPhotoPath ? await getThumbnailUrl(coverPhotoPath) : null,
+    });
+  } catch (err) {
+    console.error('POST /api/admin/models error:', err.message);
+    res.status(500).json({ error: err.message || 'Failed to create model' });
+  }
+});
+
+router.delete('/models/:id', async (req, res) => {
+  try {
+    const { error } = await supabase
+      .from('models')
+      .delete()
+      .eq('id', req.params.id);
+
+    if (error) throw error;
+    res.json({ success: true });
+  } catch (err) {
+    console.error('DELETE /api/admin/models/:id error:', err.message);
+    res.status(500).json({ error: 'Failed to delete model' });
+  }
+});
+
 router.get('/content', async (req, res) => {
   try {
     const { data: items, error } = await supabase
@@ -44,7 +110,7 @@ router.post('/content', upload.fields([
   { name: 'thumbnail', maxCount: 1 },
 ]), async (req, res) => {
   try {
-    const { title, description, type, is_free, price_usd } = req.body;
+    const { title, description, type, is_free, price_usd, model_id } = req.body;
 
     if (!title || !type) {
       return res.status(400).json({ error: 'Title and type are required' });
@@ -72,6 +138,7 @@ router.post('/content', upload.fields([
     const { data: item, error } = await supabase
       .from('content_items')
       .insert({
+        model_id: model_id || null,
         title: sanitizeText(title, 200),
         description: sanitizeText(description, 2000),
         type,
