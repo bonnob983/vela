@@ -1210,24 +1210,37 @@
 
   async function submitPayment(method) {
     if (!currentItem) return;
-    const txHash = document.getElementById('tx-hash').value.trim();
-    if (!txHash) { alert('Please enter transaction hash'); return; }
+    
+    let txHash = null;
+    if (method === 'binance') {
+      txHash = document.getElementById('tx-hash').value.trim();
+      if (!txHash) { alert('Please enter transaction hash'); return; }
+    }
+    
+    const telegramHandle = prompt('Enter your Telegram username (for content delivery):');
+    if (!telegramHandle) { alert('Telegram username is required'); return; }
     
     try {
       const res = await fetch(`${API_BASE}/api/orders`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          item_id: currentItem.id,
-          amount_usd: currentItem.price,
+          content_item_id: currentItem.id,
           payment_method: method,
-          tx_hash: txHash,
-          telegram_username: prompt('Enter your Telegram username (for content delivery):')
+          transaction_id: txHash,
+          telegram_handle: telegramHandle
         })
       });
-      if (!res.ok) throw new Error('Payment submission failed');
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || 'Payment submission failed');
+      }
       const data = await res.json();
-      alert('Payment submitted! We\'ll verify and send your content to Telegram shortly.');
+      if (data.status === 'verified') {
+        alert('Payment verified! Your content will be sent to Telegram shortly.');
+      } else {
+        alert('Order submitted! We\'ll verify your payment and send content to Telegram shortly.');
+      }
       closeModal();
     } catch (err) {
       alert('Error: ' + err.message);
