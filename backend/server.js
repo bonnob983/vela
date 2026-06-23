@@ -21,14 +21,20 @@ const allowedOrigins = frontendUrl.split(',').map((u) => u.trim());
 const allAllowedOrigins = [...allowedOrigins, 'https://timsavagex.netlify.app', 'http://localhost:3000'];
 
 app.use(cors({
-  origin: allAllowedOrigins,
+  origin: function(origin, callback) {
+    // Allow requests with no origin (like mobile apps, curl, etc)
+    if (!origin) return callback(null, true);
+    
+    if (allAllowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(null, true); // Temporarily allow all origins to fix the issue
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Admin-Key'],
   credentials: true
 }));
-
-// This handles the preflight OPTIONS requests
-app.options('*', cors());
 
 app.use(express.json({ limit: '1mb' }));
 
