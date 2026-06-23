@@ -29,7 +29,23 @@ function initTelegramBot() {
     return null;
   }
 
-  bot = new TelegramBot(token, { polling: true });
+  bot = new TelegramBot(token, { polling: { autoStart: false } });
+  
+  // Start polling with graceful conflict handling
+  bot.startPolling().catch(err => {
+    if (err.code === 409) {
+      console.warn('Telegram bot polling conflict detected — another instance may be running. Retrying...');
+      // Wait a bit and retry
+      setTimeout(() => {
+        bot.startPolling().catch(retryErr => {
+          console.error('Failed to start Telegram bot polling after retry:', retryErr.message);
+        });
+      }, 5000);
+    } else {
+      console.error('Failed to start Telegram bot polling:', err.message);
+    }
+  });
+  
   console.log('Telegram bot started');
 
   bot.onText(/\/start(?: (.+))?/, async (msg, match) => {
