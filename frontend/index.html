@@ -384,20 +384,49 @@
 
   .model-header {
     background: var(--bg2);
-    padding: 0;
+    border-bottom: 1px solid var(--gold);
+    padding: 3rem 2rem;
     text-align: center;
     position: relative;
-    padding-top: 5rem;
   }
 
   .model-header-banner {
     height: 200px;
-    background: linear-gradient(135deg, #1A1409 0%, #2a1e0a 50%, #1A1409 100%);
-    border-bottom: 2px solid var(--gold-dim);
-    position: relative;
+    background: var(--bg3);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: -40px;
+  }
+
+  .model-profile-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
+    margin: 0 auto 1rem;
     display: flex;
-    align-items: flex-start;
-    padding: 1rem 2rem;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--text-dim);
+  }
+
+  .model-page-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .model-bio {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    max-width: 500px;
+    margin: 0 auto 1.5rem;
+    line-height: 1.7;
   }
 
   .back-btn {
@@ -410,51 +439,12 @@
     text-transform: uppercase;
     cursor: pointer;
     font-family: 'Inter', sans-serif;
-    position: absolute;
-    top: 1rem;
-    left: 2rem;
-    z-index: 2;
+    margin-bottom: 1rem;
   }
 
   .back-btn:hover {
     color: var(--gold);
     border-color: var(--gold);
-  }
-
-  .model-profile-photo {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    border: 2px solid var(--gold);
-    background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
-    margin: -45px auto 1.25rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.5rem;
-    font-style: italic;
-    color: var(--gold-dim);
-    position: relative;
-    z-index: 2;
-  }
-
-  .model-page-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2rem;
-    font-weight: 300;
-    color: var(--text);
-    margin-bottom: 0.5rem;
-    letter-spacing: 0.2em;
-  }
-
-  .model-bio {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    max-width: 500px;
-    margin: 0 auto 2rem;
-    line-height: 1.7;
-    padding: 0 1rem;
   }
 
   /* MODEL TABS */
