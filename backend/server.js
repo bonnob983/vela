@@ -18,9 +18,14 @@ const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5500';
 const allowedOrigins = frontendUrl.split(',').map((u) => u.trim());
 
 app.use(cors({
-  origin: true,
-  credentials: true,
+  origin: ['https://timsavagex.netlify.app', 'http://localhost:3000'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
 }));
+
+// This handles the preflight OPTIONS requests
+app.options('*', cors());
 
 app.use(express.json({ limit: '1mb' }));
 
