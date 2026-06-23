@@ -559,6 +559,8 @@
             ${o.status === 'pending' ? `
               <button class="btn-sm" onclick="verifyOrder('${o.id}')">Verify</button>
               <button class="btn-sm btn-danger" onclick="rejectOrder('${o.id}')">Reject</button>
+            ` : o.status === 'verified' ? `
+              <button class="btn-sm btn-outline" onclick="showDownloadLink('${o.id}')">Get Link</button>
             ` : '—'}
           </td>
         </tr>`;
@@ -585,6 +587,21 @@
     if (!confirm('Reject this order?')) return;
     await fetch(`${API_BASE}/api/admin/orders/${id}/reject`, { method: 'POST', headers: headers() });
     loadOrders();
+  }
+
+  async function showDownloadLink(orderId) {
+    try {
+      const res = await fetch(`${API_BASE}/api/admin/orders/${orderId}/verify`, { method: 'POST', headers: headers() });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || 'Failed to get link');
+      }
+      const frontendUrl = window.location.origin;
+      const downloadLink = `${frontendUrl}/download/${data.link_token}`;
+      prompt('Copy this download link to send to the customer:', downloadLink);
+    } catch (err) {
+      alert('Error: ' + err.message);
+    }
   }
 
   function esc(s) {
