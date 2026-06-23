@@ -66,7 +66,7 @@ router.post('/models', upload.single('cover_photo'), async (req, res) => {
   }
 });
 
-router.patch('/models/:id', upload.single('cover_photo'), async (req, res) => {
+router.post('/models/:id', upload.single('cover_photo'), async (req, res) => {
   try {
     const { name, bio } = req.body;
     const updates = {};

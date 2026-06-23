@@ -395,7 +395,7 @@
 
     try {
       const xhr = new XMLHttpRequest();
-      xhr.open('PATCH', `${API_BASE}/api/admin/models/${id}`);
+      xhr.open('POST', `${API_BASE}/api/admin/models/${id}`);
       xhr.setRequestHeader('X-Admin-Key', adminToken);
       xhr.onload = () => {
         if (xhr.status === 401) { logout(); return; }
