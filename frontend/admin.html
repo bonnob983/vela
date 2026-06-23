@@ -85,9 +85,7 @@
 <div id="login-screen" class="login-wrap">
   <div class="login-box">
     <h1>TIMASAVAGEX</h1>
-    <p>Admin dashboard — enter your password to continue.</p>
-    <label for="password">Admin password</label>
-    <input type="password" id="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')login()" />
+    <p>Admin dashboard — click below to continue.</p>
     <button onclick="login()" style="width:100%">Sign in</button>
     <p class="error" id="login-error"></p>
   </div>
@@ -184,13 +182,12 @@
   }
 
   async function login() {
-    const password = document.getElementById('password').value;
     document.getElementById('login-error').textContent = '';
     try {
       const res = await fetch(`${API_BASE}/api/admin/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password }),
+        body: JSON.stringify({}),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Login failed');

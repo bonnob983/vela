@@ -9,13 +9,8 @@ const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 500 * 1024 * 1024 } });
 
 router.post('/login', (req, res) => {
-  const { password } = req.body;
-
-  if (!password || password !== process.env.ADMIN_SECRET) {
-    return res.status(401).json({ error: 'Invalid password' });
-  }
-
-  res.json({ token: process.env.ADMIN_SECRET });
+  // Password check removed - admin login is now open
+  res.json({ token: 'admin_access' });
 });
 
 router.use(adminAuth);
