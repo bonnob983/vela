@@ -78,6 +78,10 @@
     table { font-size: 0.75rem; }
     th, td { padding: 0.5rem; }
   }
+  /* Simple modal styles for edit dialog */
+  .edit-modal-backdrop { display: none; position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.7); align-items: center; justify-content: center; }
+  .edit-modal { background: var(--bg2); padding: 1.25rem; border: 1px solid var(--border); max-width: 520px; width: 100%; }
+  .edit-modal h3 { color: var(--gold); margin-bottom: 0.5rem; }
 </style>
 </head>
 <body>
@@ -176,6 +180,8 @@
 
   let adminToken = localStorage.getItem('timasavagex_admin_token');
   let ordersInterval = null;
+  // store last loaded content list for edit modal
+  let lastContentList = null;
 
   function headers() {
     return { 'X-Admin-Key': adminToken };
@@ -233,6 +239,9 @@
       const res = await fetch(`${API_BASE}/api/admin/content`, { headers: headers() });
       if (res.status === 401) { logout(); return; }
       const items = await res.json();
+      // store for edit modal
+      window.lastContentList = items;
+
       document.getElementById('content-table').innerHTML = items.map(item => `
         <tr>
           <td>${esc(item.title)}</td>
@@ -241,6 +250,7 @@
           <td>${item.is_free ? 'Yes' : 'No'}</td>
           <td>${item.is_active ? '✓' : '✗'}</td>
           <td class="actions">
+            <button class="btn-sm btn-outline" onclick="openEditModal('${item.id}')">Edit</button>
             <button class="btn-sm btn-outline" onclick="toggleActive('${item.id}', ${!item.is_active})">${item.is_active ? 'Deactivate' : 'Activate'}</button>
             <button class="btn-sm btn-danger" onclick="deleteContent('${item.id}')">Delete</button>
           </td>
@@ -320,6 +330,51 @@
     loadContent();
   }
 
+  // Edit modal functions
+  function openEditModal(id) {
+    const item = window.lastContentList?.find(i => i.id === id);
+    if (!item) return alert('Item not found');
+    document.getElementById('edit-id').value = item.id;
+    document.getElementById('edit-title').value = item.title || '';
+    document.getElementById('edit-desc').value = item.description || '';
+    document.getElementById('edit-price').value = item.price_usd || 0;
+    document.getElementById('edit-free').checked = !!item.is_free;
+    document.getElementById('edit-active').checked = !!item.is_active;
+    document.getElementById('edit-backdrop').style.display = 'flex';
+  }
+
+  function closeEditModal() {
+    document.getElementById('edit-backdrop').style.display = 'none';
+  }
+
+  async function submitEdit() {
+    const id = document.getElementById('edit-id').value;
+    const payload = {
+      title: document.getElementById('edit-title').value.trim(),
+      description: document.getElementById('edit-desc').value.trim(),
+      price_usd: document.getElementById('edit-price').value,
+      is_free: document.getElementById('edit-free').checked,
+      is_active: document.getElementById('edit-active').checked,
+    };
+    try {
+      const res = await fetch(`${API_BASE}/api/admin/content/${id}`, {
+        method: 'PATCH',
+        headers: { ...headers(), 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (res.status === 401) { logout(); return; }
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || 'Update failed');
+      }
+      closeEditModal();
+      loadContent();
+      alert('Updated');
+    } catch (err) {
+      alert(err.message);
+    }
+  }
+
   async function loadOrders() {
     try {
       const res = await fetch(`${API_BASE}/api/admin/orders`, { headers: headers() });
@@ -379,5 +434,26 @@
     return d.innerHTML;
   }
 </script>
+
+<!-- Edit modal markup (kept minimal and non-intrusive) -->
+<div id="edit-backdrop" class="edit-modal-backdrop" style="display:none;">
+  <div class="edit-modal">
+    <h3>Edit content</h3>
+    <input id="edit-id" type="hidden" />
+    <label>Title</label>
+    <input id="edit-title" type="text" />
+    <label>Description</label>
+    <textarea id="edit-desc" rows="3"></textarea>
+    <label>Price (USD)</label>
+    <input id="edit-price" type="number" step="0.01" />
+    <label style="display:flex;gap:0.5rem;align-items:center"><input id="edit-free" type="checkbox" /> Free</label>
+    <label style="display:flex;gap:0.5rem;align-items:center"><input id="edit-active" type="checkbox" /> Active</label>
+    <div style="margin-top:0.75rem;display:flex;gap:0.5rem;">
+      <button onclick="submitEdit()" class="btn">Save</button>
+      <button onclick="closeEditModal()" class="btn-outline">Cancel</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
