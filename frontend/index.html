@@ -1004,6 +1004,8 @@
     document.getElementById('homepage').classList.remove('hidden');
     document.getElementById('model-page').classList.remove('visible');
     window.scrollTo(0, 0);
+    currentModelId = null;
+    history.pushState({ view: 'home' }, '', '#');
   }
 
   function showModelPage(modelId) {
@@ -1021,7 +1023,17 @@
     document.getElementById('model-page').classList.add('visible');
     window.scrollTo(0, 0);
     loadContent();
+    history.pushState({ view: 'model', modelId }, '', `#model-${modelId}`);
   }
+
+  // Handle browser back/forward navigation
+  window.addEventListener('popstate', (event) => {
+    if (event.state && event.state.view === 'model') {
+      showModelPage(event.state.modelId);
+    } else {
+      showHomepage();
+    }
+  });
 
   function switchTab(tabName) {
     document.querySelectorAll('.model-tab').forEach(t => t.classList.remove('active'));
