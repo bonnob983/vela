@@ -189,24 +189,36 @@ async function sendContentInvoice(chatId, contentId, username) {
 }
 
 async function sendDownloadLink(telegramHandle, token) {
-  if (!bot) return false;
+  if (!bot) {
+    console.error('Telegram bot not initialized - cannot send download link');
+    return false;
+  }
 
   const handle = normalizeHandle(telegramHandle);
-  if (!handle) return false;
+  if (!handle) {
+    console.error('Invalid telegram handle:', telegramHandle);
+    return false;
+  }
 
   const url = getDownloadUrl(token);
   const message =
     `✅ Payment verified!\n\nHere is your exclusive download link:\n${url}\n\n⏳ This link expires in 48 hours and can only be used once.`;
 
+  console.log(`Attempting to send download link to @${handle}`);
+
   try {
     await bot.sendMessage(`@${handle}`, message);
+    console.log(`Successfully sent download link to @${handle}`);
     return true;
-  } catch {
+  } catch (err) {
+    console.error(`Failed to send to @${handle}, trying without @:`, err.message);
     try {
       await bot.sendMessage(handle, message);
+      console.log(`Successfully sent download link to ${handle} (without @)`);
       return true;
-    } catch (err) {
-      console.error(`Failed to send Telegram message to ${handle}:`, err.message);
+    } catch (err2) {
+      console.error(`Failed to send Telegram message to ${handle}:`, err2.message);
+      console.error('Full error details:', err2.response?.body || err2);
       return false;
     }
   }
