@@ -11,66 +11,6 @@ const TYPE_LABELS = {
   call: 'Live Call',
 };
 
-// Model listing endpoints
-router.get('/models', async (req, res) => {
-  try {
-    const { data: models, error } = await supabase
-      .from('models')
-      .select('*')
-      .order('created_at', { ascending: false });
-
-    if (error) throw error;
-
-    const withCoverUrls = await Promise.all(
-      models.map(async (model) => ({
-        ...model,
-        cover_photo_url: model.cover_photo ? await getThumbnailUrl(model.cover_photo) : null,
-      }))
-    );
-
-    res.json(withCoverUrls);
-  } catch (err) {
-    console.error('GET /api/models error:', err.message);
-    res.status(500).json({ error: 'Failed to fetch models' });
-  }
-});
-
-router.get('/models/:id', async (req, res) => {
-  try {
-    const { data: model, error } = await supabase
-      .from('models')
-      .select('*')
-      .eq('id', req.params.id)
-      .single();
-
-    if (error || !model) {
-      return res.status(404).json({ error: 'Model not found' });
-    }
-
-    const { data: items, error: itemsError } = await supabase
-      .from('content_items')
-      .select('*')
-      .eq('model_id', req.params.id)
-      .eq('is_active', true)
-      .order('created_at', { ascending: false });
-
-    if (itemsError) throw itemsError;
-
-    const formattedContent = await Promise.all(
-      items.map((item) => formatContentItem(item, item.is_free))
-    );
-
-    res.json({
-      ...model,
-      cover_photo_url: model.cover_photo ? await getThumbnailUrl(model.cover_photo) : null,
-      content: formattedContent,
-    });
-  } catch (err) {
-    console.error('GET /api/models/:id error:', err.message);
-    res.status(500).json({ error: 'Failed to fetch model' });
-  }
-});
-
 async function formatContentItem(item, includeFile = false) {
   const thumbnailUrl = await getThumbnailUrl(item.thumbnail_path);
   const formatted = {

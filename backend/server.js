@@ -6,6 +6,7 @@ const rateLimit = require('express-rate-limit');
 const path = require('path');
 
 const contentRoutes = require('./routes/content');
+const modelsRoutes = require('./routes/models');
 const ordersRoutes = require('./routes/orders');
 const adminRoutes = require('./routes/admin');
 const linksRoutes = require('./routes/links');
@@ -51,6 +52,7 @@ app.get('/health', (req, res) => {
 });
 
 app.use('/api/content', contentRoutes);
+app.use('/api/models', modelsRoutes);
 app.use('/api/orders', orderLimiter, ordersRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/links', linksRoutes);
