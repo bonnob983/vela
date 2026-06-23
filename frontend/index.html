@@ -959,10 +959,25 @@
             <div class="step-num">1</div>
             <div class="step-text">
               <div class="step-title">Pay with PayPal</div>
-              <div class="step-detail">Click below to complete your payment securely via PayPal. You'll be redirected to PayPal's checkout.</div>
+              <div class="step-detail">Send payment via PayPal to the address below.</div>
+              <div class="copy-field">
+                <code id="paypal-address">paypal@timasavagex.com</code>
+                <button class="copy-btn" onclick="copyToClipboard('paypal-address')">Copy</button>
+              </div>
             </div>
           </div>
-          <button class="btn-submit" onclick="submitPayment('paypal')">Continue to PayPal</button>
+          <div class="payment-step">
+            <div class="step-num">2</div>
+            <div class="step-text">
+              <div class="step-title">Enter Transaction ID</div>
+              <div class="step-detail">After sending, paste your PayPal transaction ID below so we can verify payment.</div>
+              <div class="tx-input-wrap">
+                <label class="tx-label">Transaction ID</label>
+                <input type="text" class="tx-input" id="paypal-tx-id" placeholder="Enter PayPal transaction ID" maxlength="100">
+              </div>
+            </div>
+          </div>
+          <button class="btn-submit" onclick="submitPayment('paypal')">Submit Payment</button>
         </div>
 
         <div id="payment-panel-telegram" class="payment-panel">
@@ -1215,6 +1230,9 @@
     if (method === 'binance') {
       txHash = document.getElementById('tx-hash').value.trim();
       if (!txHash) { alert('Please enter transaction hash'); return; }
+    } else if (method === 'paypal') {
+      txHash = document.getElementById('paypal-tx-id').value.trim();
+      if (!txHash) { alert('Please enter PayPal transaction ID'); return; }
     }
     
     const telegramHandle = prompt('Enter your Telegram username (for content delivery):');
