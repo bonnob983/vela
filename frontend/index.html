@@ -900,6 +900,16 @@
             <div class="method-badge badge-fast">INSTANT</div>
           </div>
 
+          <div class="payment-method" onclick="selectPayment('paypal')">
+            <input type="radio" name="payment" value="paypal" id="paypal-radio">
+            <div class="method-icon paypal">P</div>
+            <div class="method-info">
+              <div class="method-name">PayPal</div>
+              <div class="method-desc">Secure card payment</div>
+            </div>
+            <div class="method-badge badge-fast">INSTANT</div>
+          </div>
+
           <div class="payment-method" onclick="selectPayment('telegram')">
             <input type="radio" name="payment" value="telegram" id="telegram-radio">
             <div class="method-icon telegram">✈️</div>
@@ -942,6 +952,17 @@
             </div>
           </div>
           <button class="btn-submit" onclick="submitPayment('binance')">Verify Payment</button>
+        </div>
+
+        <div id="payment-panel-paypal" class="payment-panel">
+          <div class="payment-step">
+            <div class="step-num">1</div>
+            <div class="step-text">
+              <div class="step-title">Pay with PayPal</div>
+              <div class="step-detail">Click below to complete your payment securely via PayPal. You'll be redirected to PayPal's checkout.</div>
+            </div>
+          </div>
+          <button class="btn-submit" onclick="submitPayment('paypal')">Continue to PayPal</button>
         </div>
 
         <div id="payment-panel-telegram" class="payment-panel">
