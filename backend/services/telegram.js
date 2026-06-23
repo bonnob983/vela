@@ -31,22 +31,21 @@ function initTelegramBot() {
 
   bot = new TelegramBot(token, { polling: { autoStart: false } });
   
-  // Start polling with graceful conflict handling
-  bot.startPolling().catch(err => {
-    if (err.code === 409) {
-      console.warn('Telegram bot polling conflict detected — another instance may be running. Retrying...');
-      // Wait a bit and retry
-      setTimeout(() => {
-        bot.startPolling().catch(retryErr => {
-          console.error('Failed to start Telegram bot polling after retry:', retryErr.message);
-        });
-      }, 5000);
-    } else {
-      console.error('Failed to start Telegram bot polling:', err.message);
-    }
-  });
+  // Add delay before starting polling to allow old instance to fully stop
+  setTimeout(() => {
+    bot.startPolling()
+      .then(() => console.log('Telegram bot polling started successfully'))
+      .catch(err => {
+        if (err.code === 409 || err.message.includes('409')) {
+          console.warn('Telegram bot polling conflict detected — another instance may be running. Bot will remain disabled.');
+          // Don't retry - let the new instance take over
+        } else {
+          console.error('Failed to start Telegram bot polling:', err.message);
+        }
+      });
+  }, 10000); // 10 second delay
   
-  console.log('Telegram bot started');
+  console.log('Telegram bot initialized (polling will start in 10 seconds)');
 
   bot.onText(/\/start(?: (.+))?/, async (msg, match) => {
     const chatId = msg.chat.id;
