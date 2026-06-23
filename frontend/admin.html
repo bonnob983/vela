@@ -394,21 +394,28 @@
     if (cover) form.append('cover_photo', cover);
 
     try {
-      const res = await fetch(`${API_BASE}/api/admin/models/${id}`, {
-        method: 'PATCH',
-        headers: { 'X-Admin-Key': adminToken },
-        body: form,
-      });
-      if (res.status === 401) { logout(); return; }
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error || 'Update failed');
-      }
-      closeModelEditModal();
-      loadModels();
-      alert('Model updated');
+      const xhr = new XMLHttpRequest();
+      xhr.open('PATCH', `${API_BASE}/api/admin/models/${id}`);
+      xhr.setRequestHeader('X-Admin-Key', adminToken);
+      xhr.onload = () => {
+        if (xhr.status === 401) { logout(); return; }
+        if (xhr.status >= 400) {
+          const err = JSON.parse(xhr.responseText);
+          alert(err.error || 'Update failed');
+          return;
+        }
+        closeModelEditModal();
+        loadModels();
+        alert('Model updated');
+      };
+      xhr.onerror = () => {
+        console.error('Model edit error:', xhr.statusText);
+        alert('Failed to update model - network error');
+      };
+      xhr.send(form);
     } catch (err) {
-      alert(err.message);
+      console.error('Model edit error:', err);
+      alert(err.message || 'Failed to update model');
     }
   }
 

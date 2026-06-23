@@ -71,14 +71,18 @@ router.patch('/models/:id', upload.single('cover_photo'), async (req, res) => {
     const { name, bio } = req.body;
     const updates = {};
 
-    if (name !== undefined) {
+    if (name !== undefined && name !== '') {
       updates.name = sanitizeText(name, 100);
     }
-    if (bio !== undefined) {
+    if (bio !== undefined && bio !== '') {
       updates.bio = sanitizeText(bio, 500);
     }
     if (req.file) {
       updates.cover_photo = await uploadFile(req.file.buffer, req.file.originalname, req.file.mimetype);
+    }
+
+    if (Object.keys(updates).length === 0) {
+      return res.status(400).json({ error: 'No changes provided' });
     }
 
     const { data: model, error } = await supabase
