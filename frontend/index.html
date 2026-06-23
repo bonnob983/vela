@@ -1050,15 +1050,27 @@
 
   async function loadModels() {
     try {
+      console.log('Loading models from:', `${API_BASE}/api/models`);
       const res = await fetch(`${API_BASE}/api/models`);
-      if (!res.ok) throw new Error('Failed to fetch models');
+      console.log('Response status:', res.status);
+      if (!res.ok) {
+        const errorText = await res.text();
+        console.error('Error response:', errorText);
+        throw new Error(`Failed to fetch models: ${res.status} ${errorText}`);
+      }
       allModels = await res.json();
+      console.log('Models loaded:', allModels);
+
+      if (allModels.length === 0) {
+        document.getElementById('models-grid').innerHTML = '<div style="grid-column:1/-1;padding:3rem;">No models found. Add models in the admin panel.</div>';
+        return;
+      }
 
       document.getElementById('models-grid').innerHTML = allModels.map(model => `
         <div class="model-card" onclick="showModelPage('${model.id}')">
           <div class="model-photo">
-            ${model.cover_photo_url 
-              ? `<img src="${model.cover_photo_url}" style="width:100%;height:100%;object-fit:cover;">` 
+            ${model.cover_photo_url
+              ? `<img src="${model.cover_photo_url}" style="width:100%;height:100%;object-fit:cover;">`
               : model.name.substring(0, 2).toUpperCase()}
           </div>
           <div class="model-info">
@@ -1069,8 +1081,8 @@
         </div>
       `).join('');
     } catch (err) {
-      console.error(err);
-      document.getElementById('models-grid').innerHTML = '<div style="grid-column:1/-1;padding:3rem;">Failed to load models</div>';
+      console.error('Load models error:', err);
+      document.getElementById('models-grid').innerHTML = `<div style="grid-column:1/-1;padding:3rem;">Error: ${err.message}</div>`;
     }
   }
 
