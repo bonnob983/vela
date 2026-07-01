@@ -294,6 +294,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 2rem;
   }
   
   .telegram-banner-text {
@@ -1129,6 +1130,7 @@
 
     <div style="max-width: 1200px; margin: 0 auto; padding: 3rem;">
       <div id="streak-banner-container"></div>
+      
       <div class="telegram-channel-banner">
         <span class="telegram-banner-text">Join TIMASAVAGEX on Telegram for free teasers & early drops</span>
         <a class="telegram-banner-link" href="#" id="telegram-channel-link" target="_blank">Join Channel →</a>
@@ -1200,7 +1202,7 @@
 
         <span class="payment-label">Select Payment Method</span>
         <div class="payment-methods" id="payment-methods">
-          <div class="payment-method" onclick="selectPayment('binance')">
+          <div class="payment-method" onclick="selectMethod('binance')">
             <input type="radio" name="payment" value="binance" id="binance-radio">
             <div class="method-icon binance">₿</div>
             <div class="method-info">
@@ -1209,7 +1211,7 @@
             </div>
           </div>
 
-          <div class="payment-method" onclick="selectPayment('usdt')">
+          <div class="payment-method" onclick="selectMethod('usdt')">
             <input type="radio" name="payment" value="usdt" id="usdt-radio">
             <div class="method-icon usdt">₮</div>
             <div class="method-info">
@@ -1218,7 +1220,7 @@
             </div>
           </div>
 
-          <div class="payment-method" onclick="selectPayment('bitcoin')">
+          <div class="payment-method" onclick="selectMethod('bitcoin')">
             <input type="radio" name="payment" value="bitcoin" id="bitcoin-radio">
             <div class="method-icon bitcoin">₿</div>
             <div class="method-info">
@@ -1352,7 +1354,7 @@
 </div>
 
 <script>
-  // CONSTANTS
+  // CONSTANTS AT TOP OF SCRIPT
   const BINANCE_ID = 'YOUR_BINANCE_PAY_ID';
   const USDT_WALLET = 'YOUR_USDT_TRC20_ADDRESS';
   const BTC_WALLET = 'YOUR_BTC_ADDRESS';
@@ -1629,7 +1631,7 @@
     document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
     document.querySelectorAll('.payment-panel').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.tx-input').forEach(i => i.value = '');
-    document.querySelector('#modal-form-area > div:first-child').style.display = 'block';
+    document.getElementById('modal-form-area').style.display = 'block';
     document.querySelector('.success-panel').classList.remove('active');
   }
 
@@ -1641,9 +1643,9 @@
     if (e.target.id === 'modal-overlay') closeModal();
   }
 
-  function selectPayment(method) {
+  function selectMethod(method) {
     document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
-    document.querySelector(`[onclick="selectPayment('${method}')"]`).classList.add('selected');
+    document.querySelector(`[onclick="selectMethod('${method}')"]`).classList.add('selected');
     document.getElementById(`${method}-radio`).checked = true;
     document.querySelectorAll('.payment-panel').forEach(p => p.classList.remove('active'));
     document.getElementById(`payment-panel-${method}`).classList.add('active');
