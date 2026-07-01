@@ -228,8 +228,8 @@
 
   .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
-  .btn-primary { background: var(--gold); color: var(--bg); border: none; padding: 1rem 2.5rem; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; font-family: 'Inter', sans-serif; font-weight: 500; text-decoration: none; display: inline-block; }
-  .btn-outline { background: transparent; color: var(--gold); border: 1px solid var(--border-strong); padding: 1rem 2.5rem; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; font-family: 'Inter', sans-serif; text-decoration: none; display: inline-block; }
+  .btn-primary { background: var(--gold); color: var(--bg); border: none; padding: 1rem 2.5rem; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; font-family: 'Inter', sans-serif; font-weight: 500; }
+  .btn-outline { background: transparent; color: var(--gold); border: 1px solid var(--border-strong); padding: 1rem 2.5rem; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; font-family: 'Inter', sans-serif; font-weight: 500; }
 
   /* MODELS GRID (minimum styles re-used) */
   .models-section { padding: 4rem 3rem; max-width: 1200px; margin: 0 auto; }
@@ -239,7 +239,7 @@
 
   .model-card { background: var(--bg2); border: 1px solid var(--border); cursor: pointer; transition: border-color 0.2s, background 0.2s; overflow: hidden; }
   .model-card:hover { border-color: var(--gold); background: var(--surface); }
-  .model-photo { width: 100%; aspect-ratio: 1; background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-style: italic; color: var(--text-dim); }
+  .model-photo { width: 100%; aspect-ratio: 1; background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: var(--gold-dim); }
   .model-info { padding: 1.5rem; text-align: center; }
   .model-name { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 300; color: var(--text); margin-bottom: 0.5rem; }
   .model-tagline { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
@@ -253,17 +253,165 @@
 
   .model-header { background: var(--bg2); border-bottom: 1px solid var(--gold); padding: 3rem 2rem; text-align: center; position: relative; }
   .model-header-banner { height: 200px; background: var(--bg3); border-bottom: 1px solid var(--border); margin-bottom: -40px; }
-  .model-profile-photo { width: 80px; height: 80px; border-radius: 50%; border: 2px solid var(--gold); background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%); margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-style: italic; color: var(--text-dim); }
+  .model-profile-photo { width: 80px; height: 80px; border-radius: 50%; border: 2px solid var(--gold); background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%); margin: 0 auto; display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--gold); }
   .model-page-name { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; color: var(--text); margin-bottom: 0.5rem; }
   .model-bio { font-size: 0.85rem; color: var(--text-muted); max-width: 500px; margin: 0 auto 1.5rem; line-height: 1.7; }
-  .back-btn { background: transparent; color: var(--text-muted); border: 1px solid var(--border); padding: 0.5rem 1rem; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; font-family: 'Inter', sans-serif; margin-bottom: 1rem; }
+  .back-btn { background: transparent; color: var(--text-muted); border: 1px solid var(--border); padding: 0.5rem 1rem; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; }
   .back-btn:hover { color: var(--gold); border-color: var(--gold); }
+  
+  .streak-banner {
+    background: var(--gold);
+    color: var(--bg);
+    padding: 1rem 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid var(--gold);
+  }
+  
+  .streak-banner-text {
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+  
+  .streak-banner-close {
+    background: none;
+    border: none;
+    color: var(--bg);
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 0;
+    flex-shrink: 0;
+  }
+  
+  .telegram-channel-banner {
+    width: 100%;
+    background: var(--surface2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 0.85rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .telegram-banner-text {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+  
+  .telegram-banner-link {
+    font-size: 0.75rem;
+    color: var(--gold);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .telegram-banner-link:hover {
+    color: var(--gold-light);
+  }
+
   .model-tabs { display: flex; justify-content: center; gap: 0; border-bottom: 1px solid var(--border); margin-bottom: 2rem; }
-  .model-tab { background: none; border: none; color: var(--text-muted); padding: 1rem 2rem; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; font-family: 'Inter', sans-serif; border-bottom: 2px solid transparent; transition: color 0.2s, border-color 0.2s; }
+  .model-tab { background: none; border: none; color: var(--text-muted); padding: 1rem 2rem; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; font-family: 'Inter', sans-serif; }
   .model-tab:hover { color: var(--gold); }
-  .model-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+  .model-tab.active { color: var(--gold); border-bottom: 2px solid var(--gold); }
   .tab-content { display: none; }
   .tab-content.active { display: block; }
+  
+  .pricing-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 3rem;
+  }
+  
+  .pricing-card {
+    background: var(--bg2);
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+  }
+  
+  .pricing-card.most-popular {
+    position: relative;
+  }
+  
+  .pricing-card.most-popular::before {
+    content: 'MOST POPULAR';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gold);
+    color: var(--bg);
+    padding: 0.25rem 0.75rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+  }
+  
+  .pricing-tier {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+  
+  .pricing-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+  
+  .pricing-features {
+    list-style: none;
+    margin-bottom: 1.5rem;
+    text-align: left;
+  }
+  
+  .pricing-features li {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    padding: 0.35rem 0;
+    line-height: 1.6;
+  }
+  
+  .pricing-cta {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 1px solid var(--gold);
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  
+  .pricing-cta.disabled {
+    background: transparent;
+    color: var(--gold);
+    cursor: not-allowed;
+  }
+  
+  .pricing-cta.filled {
+    background: var(--gold);
+    color: var(--bg);
+    border-color: var(--gold);
+  }
+  
+  .pricing-cta.filled:hover {
+    background: var(--gold-light);
+    border-color: var(--gold-light);
+  }
+  
   .model-about-block { background: var(--bg2); border: 1px solid var(--border); padding: 2rem; margin-top: 3rem; max-width: 800px; margin-left: auto; margin-right: auto; }
 
   /* FREE CONTENT GRID */
@@ -391,13 +539,43 @@
     color: var(--gold);
     letter-spacing: 0.15em;
   }
+  
+  .new-badge {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    background: var(--surface2);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 0.15rem 0.4rem;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 600;
+    z-index: 2;
+  }
+  
+  .countdown-badge {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: transparent;
+    border: 1px solid #ff4444;
+    color: #ff4444;
+    padding: 0.15rem 0.4rem;
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+    z-index: 2;
+  }
 
   .locked-info {
     padding: 0.85rem 1.1rem;
     border-top: 1px solid var(--border);
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    gap: 0.3rem;
   }
 
   .locked-tag {
@@ -419,6 +597,12 @@
     font-size: 0.82rem;
     color: var(--gold);
     font-weight: 500;
+  }
+  
+  .locked-subscription-hint {
+    font-size: 0.6rem;
+    color: var(--gold);
+    margin-top: 0.2rem;
   }
 
   /* PAYMENT MODAL — fixed z-index above everything */
@@ -527,6 +711,38 @@
     margin-bottom: 1rem;
     display: block;
   }
+  
+  .telegram-input-wrap {
+    margin-bottom: 1.5rem;
+  }
+  
+  .telegram-input-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  
+  .telegram-input {
+    width: 100%;
+    background: #0A0806;
+    border: 1px solid var(--border);
+    color: #EDE5D0;
+    padding: 0.7rem 0.9rem;
+    font-size: 0.82rem;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+  }
+  
+  .telegram-input:focus {
+    border-color: var(--gold-dim);
+  }
+  
+  .telegram-input::placeholder {
+    color: var(--text-dim);
+  }
 
   .payment-methods {
     display: flex;
@@ -547,7 +763,7 @@
     color: #000000;
   }
 
-  .payment-method:hover, .payment-method.selected { border-color: var(--gold); }
+  .payment-method:hover, .payment-method.selected { border-color: var(--gold); background: #fafaf8; }
 
   .payment-method input[type="radio"] {
     accent-color: var(--gold);
@@ -568,24 +784,12 @@
   }
 
   .method-icon.binance { background: #F0B90B22; }
-  .method-icon.paypal { background: #003087; }
-  .method-icon.telegram { background: #0088cc22; }
+  .method-icon.usdt { background: #26A17B22; }
+  .method-icon.bitcoin { background: #F7931A22; }
 
   .method-info { flex: 1; }
-  .method-name { font-size: 0.85rem; color: #EDE5D0; font-weight: 400; margin-bottom: 0.1rem; }
-  .method-desc { font-size: 0.7rem; color: var(--text-muted); }
-
-  .method-badge {
-    font-size: 0.55rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    padding: 0.2rem 0.5rem;
-    border: 1px solid;
-    flex-shrink: 0;
-  }
-
-  .badge-anon { color: var(--gold); border-color: var(--gold-dim); }
-  .badge-fast { color: #5cd85c; border-color: #2a602a; }
+  .method-name { font-size: 0.85rem; color: #000000; font-weight: 500; margin-bottom: 0.1rem; }
+  .method-desc { font-size: 0.7rem; color: #666666; }
 
   .payment-panel {
     display: none;
@@ -622,7 +826,7 @@
   }
 
   .step-text { flex: 1; }
-  .step-title { font-size: 0.82rem; color: #000000; margin-bottom: 0.25rem; }
+  .step-title { font-size: 0.82rem; color: #000000; font-weight: 500; margin-bottom: 0.25rem; }
   .step-detail { font-size: 0.75rem; color: #333333; line-height: 1.6; }
 
   .copy-field {
@@ -658,7 +862,7 @@
   .copy-btn:hover { color: var(--gold); }
 
   .tx-input-wrap { margin-top: 1rem; }
-  .tx-label { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.1em; margin-bottom: 0.5rem; display: block; }
+  .tx-label { font-size: 0.7rem; color: #666666; letter-spacing: 0.1em; margin-bottom: 0.5rem; display: block; text-transform: uppercase; }
 
   .tx-input {
     width: 100%;
@@ -687,6 +891,19 @@
     font-family: 'Inter', sans-serif;
     font-weight: 500;
     margin-top: 1.5rem;
+  }
+  
+  .btn-submit:hover {
+    background: var(--gold-light);
+  }
+  
+  .payment-delivery-note {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
   }
 
   .modal-note {
@@ -738,6 +955,83 @@
     line-height: 1.8;
     margin-bottom: 1.5rem;
   }
+  
+  .you-might-like {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(201,168,76,0.2);
+  }
+  
+  .you-might-like-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: #EDE5D0;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .might-like-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
+  
+  @media (max-width: 520px) {
+    .might-like-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  .might-like-card {
+    background: #211A0C;
+    border: 1px solid rgba(201,168,76,0.2);
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  
+  .might-like-card:hover {
+    border-color: var(--gold);
+  }
+  
+  .might-like-thumb {
+    width: 100%;
+    aspect-ratio: 1;
+    background: #1a1409;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    position: relative;
+  }
+  
+  .might-like-lock {
+    width: 28px;
+    height: 28px;
+    border: 1px solid rgba(201,168,76,0.5);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .might-like-lock svg {
+    width: 12px;
+    height: 12px;
+    stroke: rgba(201,168,76,0.7);
+    fill: none;
+    stroke-width: 1.5;
+  }
+  
+  .might-like-info {
+    padding: 0.6rem;
+  }
+  
+  .might-like-name {
+    font-size: 0.7rem;
+    color: #EDE5D0;
+    font-weight: 400;
+  }
 
   footer {
     border-top: 1px solid var(--border);
@@ -768,6 +1062,8 @@
     .models-section { padding: 4rem 1.25rem; }
     .modal { max-height: 100vh; }
     .modal-header, .modal-body { padding: 1.25rem; }
+    .pricing-strip { grid-template-columns: 1fr; }
+    .telegram-channel-banner { flex-direction: column; gap: 1rem; }
   }
 </style>
 </head>
@@ -832,6 +1128,12 @@
     </div>
 
     <div style="max-width: 1200px; margin: 0 auto; padding: 3rem;">
+      <div id="streak-banner-container"></div>
+      <div class="telegram-channel-banner">
+        <span class="telegram-banner-text">Join TIMASAVAGEX on Telegram for free teasers & early drops</span>
+        <a class="telegram-banner-link" href="#" id="telegram-channel-link" target="_blank">Join Channel →</a>
+      </div>
+      
       <div class="model-tabs">
         <button class="model-tab active" onclick="switchTab('free')">Free Content</button>
         <button class="model-tab" onclick="switchTab('premium')">Premium Content</button>
@@ -845,6 +1147,9 @@
       </div>
 
       <div id="tab-premium" class="tab-content">
+        <div class="pricing-strip" id="pricing-strip">
+          <!-- Pricing cards inserted here by JS -->
+        </div>
         <div class="locked-grid" id="locked-content-grid">
           <div class="thumb-placeholder" style="grid-column:1/-1;padding:3rem;aspect-ratio:auto;">Loading premium content…</div>
         </div>
@@ -862,7 +1167,7 @@
 
   <footer>
     <div class="footer-logo">TIMASAVAGEX</div>
-    <p class="footer-note">This site is intended for adults 18 years and older. All transactions are processed securely through your chosen payment provider. All content is delivered instantly via Telegram after payment is confirmed.</p>
+    <p class="footer-note">This site is intended for adults 18 years and older. All transactions are processed securely through your chosen payment provider. All content is delivered instantly via Telegram.</p>
   </footer>
 
 </div>
@@ -873,7 +1178,7 @@
     <div class="modal-header">
       <div>
         <div class="modal-title">Unlock Content</div>
-        <div class="modal-subtitle" id="modal-subtitle">Choose your payment method</div>
+        <div class="modal-subtitle" id="modal-subtitle">Crypto Payment</div>
       </div>
       <button class="modal-close" onclick="closeModal()">✕</button>
     </div>
@@ -888,6 +1193,11 @@
           </div>
         </div>
 
+        <div class="telegram-input-wrap">
+          <label class="telegram-input-label">Your Telegram Username</label>
+          <input type="text" class="telegram-input" id="modal-tg-handle" placeholder="@username" maxlength="32">
+        </div>
+
         <span class="payment-label">Select Payment Method</span>
         <div class="payment-methods" id="payment-methods">
           <div class="payment-method" onclick="selectPayment('binance')">
@@ -895,29 +1205,26 @@
             <div class="method-icon binance">₿</div>
             <div class="method-info">
               <div class="method-name">Binance Pay</div>
-              <div class="method-desc">Fast crypto payment</div>
+              <div class="method-desc">Fast crypto</div>
             </div>
-            <div class="method-badge badge-fast">INSTANT</div>
           </div>
 
-          <div class="payment-method" onclick="selectPayment('paypal')">
-            <input type="radio" name="payment" value="paypal" id="paypal-radio">
-            <div class="method-icon paypal">P</div>
+          <div class="payment-method" onclick="selectPayment('usdt')">
+            <input type="radio" name="payment" value="usdt" id="usdt-radio">
+            <div class="method-icon usdt">₮</div>
             <div class="method-info">
-              <div class="method-name">PayPal</div>
-              <div class="method-desc">Secure card payment</div>
+              <div class="method-name">USDT TRC20</div>
+              <div class="method-desc">Stablecoin transfer</div>
             </div>
-            <div class="method-badge badge-fast">INSTANT</div>
           </div>
 
-          <div class="payment-method" onclick="selectPayment('telegram')">
-            <input type="radio" name="payment" value="telegram" id="telegram-radio">
-            <div class="method-icon telegram">✈️</div>
+          <div class="payment-method" onclick="selectPayment('bitcoin')">
+            <input type="radio" name="payment" value="bitcoin" id="bitcoin-radio">
+            <div class="method-icon bitcoin">₿</div>
             <div class="method-info">
-              <div class="method-name">Telegram Stars</div>
-              <div class="method-desc">Secure telegram payment</div>
+              <div class="method-name">Bitcoin</div>
+              <div class="method-desc">BTC network</div>
             </div>
-            <div class="method-badge badge-fast">INSTANT</div>
           </div>
         </div>
 
@@ -925,74 +1232,119 @@
           <div class="payment-step">
             <div class="step-num">1</div>
             <div class="step-text">
-              <div class="step-title">Copy Payment Address</div>
-              <div class="step-detail">Use the address below to complete payment. Include your order ID in the transaction memo.</div>
+              <div class="step-title">Amount to Send</div>
+              <div class="step-detail">Send exactly <strong id="binance-amount">$0.00</strong></div>
               <div class="copy-field">
-                <code id="binance-address">UQBjF3K...</code>
-                <button class="copy-btn" onclick="copyToClipboard('binance-address')">Copy</button>
+                <code id="binance-amount-copy">0.00</code>
+                <button class="copy-btn" onclick="copyToClipboard('binance-amount-copy')">Copy</button>
               </div>
             </div>
           </div>
           <div class="payment-step">
             <div class="step-num">2</div>
             <div class="step-text">
-              <div class="step-title">Send Payment</div>
-              <div class="step-detail">Send exactly <strong id="amount-display">$0.00</strong> USDT to the address above.</div>
+              <div class="step-title">Binance Pay ID</div>
+              <div class="copy-field">
+                <code id="binance-id-copy">YOUR_BINANCE_PAY_ID</code>
+                <button class="copy-btn" onclick="copyToClipboard('binance-id-copy')">Copy</button>
+              </div>
+            </div>
+          </div>
+          <div class="payment-step">
+            <div class="step-num">3</div>
+            <div class="step-text">
+              <div class="step-title">Enter Transaction ID</div>
+              <div class="tx-input-wrap">
+                <label class="tx-label">Transaction ID / Hash</label>
+                <input type="text" class="tx-input" id="binance-tx-id" placeholder="Enter TX ID" maxlength="100">
+              </div>
+            </div>
+          </div>
+          <button class="btn-submit" onclick="submitCryptoPayment('binance')">Confirm Payment</button>
+          <div class="payment-delivery-note">⚡ Link arrives in under 2 minutes via Telegram</div>
+        </div>
+
+        <div id="payment-panel-usdt" class="payment-panel">
+          <div class="payment-step">
+            <div class="step-num">1</div>
+            <div class="step-text">
+              <div class="step-title">Amount to Send</div>
+              <div class="step-detail">Send exactly <strong id="usdt-amount">$0.00</strong> USDT</div>
+              <div class="copy-field">
+                <code id="usdt-amount-copy">0.00</code>
+                <button class="copy-btn" onclick="copyToClipboard('usdt-amount-copy')">Copy</button>
+              </div>
+            </div>
+          </div>
+          <div class="payment-step">
+            <div class="step-num">2</div>
+            <div class="step-text">
+              <div class="step-title">USDT TRC20 Address</div>
+              <div class="copy-field">
+                <code id="usdt-address-copy">YOUR_USDT_TRC20_ADDRESS</code>
+                <button class="copy-btn" onclick="copyToClipboard('usdt-address-copy')">Copy</button>
+              </div>
             </div>
           </div>
           <div class="payment-step">
             <div class="step-num">3</div>
             <div class="step-text">
               <div class="step-title">Enter Transaction Hash</div>
-              <div class="step-detail">After sending, paste your transaction hash below so we can verify payment.</div>
               <div class="tx-input-wrap">
-                <label class="tx-label">Transaction Hash (TX ID)</label>
-                <input type="text" class="tx-input" id="tx-hash" placeholder="0x123abc..." maxlength="100">
+                <label class="tx-label">Transaction Hash</label>
+                <input type="text" class="tx-input" id="usdt-tx-id" placeholder="0x..." maxlength="100">
               </div>
             </div>
           </div>
-          <button class="btn-submit" onclick="submitPayment('binance')">Verify Payment</button>
+          <button class="btn-submit" onclick="submitCryptoPayment('usdt')">Confirm Payment</button>
+          <div class="payment-delivery-note">⚡ Link arrives in under 2 minutes via Telegram</div>
         </div>
 
-        <div id="payment-panel-paypal" class="payment-panel">
+        <div id="payment-panel-bitcoin" class="payment-panel">
           <div class="payment-step">
             <div class="step-num">1</div>
             <div class="step-text">
-              <div class="step-title">Pay with PayPal</div>
-              <div class="step-detail">Send payment via PayPal to the address below.</div>
+              <div class="step-title">Amount to Send</div>
+              <div class="step-detail">Send exactly <strong id="bitcoin-amount">$0.00</strong> BTC</div>
               <div class="copy-field">
-                <code id="paypal-address">paypal@timasavagex.com</code>
-                <button class="copy-btn" onclick="copyToClipboard('paypal-address')">Copy</button>
+                <code id="bitcoin-amount-copy">0.00</code>
+                <button class="copy-btn" onclick="copyToClipboard('bitcoin-amount-copy')">Copy</button>
               </div>
             </div>
           </div>
           <div class="payment-step">
             <div class="step-num">2</div>
             <div class="step-text">
-              <div class="step-title">Enter Transaction ID</div>
-              <div class="step-detail">After sending, paste your PayPal transaction ID below so we can verify payment.</div>
-              <div class="tx-input-wrap">
-                <label class="tx-label">Transaction ID</label>
-                <input type="text" class="tx-input" id="paypal-tx-id" placeholder="Enter PayPal transaction ID" maxlength="100">
+              <div class="step-title">Bitcoin Address</div>
+              <div class="copy-field">
+                <code id="bitcoin-address-copy">YOUR_BTC_ADDRESS</code>
+                <button class="copy-btn" onclick="copyToClipboard('bitcoin-address-copy')">Copy</button>
               </div>
             </div>
           </div>
-          <button class="btn-submit" onclick="submitPayment('paypal')">Submit Payment</button>
-        </div>
-
-        <div id="payment-panel-telegram" class="payment-panel">
           <div class="payment-step">
-            <div class="step-num">1</div>
+            <div class="step-num">3</div>
             <div class="step-text">
-              <div class="step-title">Click to Open Telegram</div>
-              <div class="step-detail">We'll send you a payment link via Telegram. Use Telegram Stars to complete the purchase instantly.</div>
+              <div class="step-title">Enter Transaction Hash</div>
+              <div class="tx-input-wrap">
+                <label class="tx-label">Transaction Hash</label>
+                <input type="text" class="tx-input" id="bitcoin-tx-id" placeholder="0x..." maxlength="100">
+              </div>
             </div>
           </div>
-          <button class="btn-submit" onclick="initiateTelepayment()">Open Telegram Payment</button>
+          <button class="btn-submit" onclick="submitCryptoPayment('bitcoin')">Confirm Payment</button>
+          <div class="payment-delivery-note">⚡ Link arrives in under 2 minutes via Telegram</div>
         </div>
-
-        <div class="modal-note">
-          All payments are processed securely. Your content will be delivered instantly to your Telegram after payment confirmation.
+      </div>
+      <div class="success-panel">
+        <div class="success-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+        <div class="success-title">Payment Received</div>
+        <div class="success-msg">Your content link has been sent to your Telegram. Check your messages!</div>
+        <div class="you-might-like">
+          <div class="you-might-like-title">You might also like</div>
+          <div class="might-like-grid" id="might-like-grid">
+            <!-- 3 recommended cards inserted by JS -->
+          </div>
         </div>
       </div>
     </div>
@@ -1000,216 +1352,301 @@
 </div>
 
 <script>
-  const API_BASE = 'https://vela-production-f18d.up.railway.app';
+  // CONSTANTS
+  const BINANCE_ID = 'YOUR_BINANCE_PAY_ID';
+  const USDT_WALLET = 'YOUR_USDT_TRC20_ADDRESS';
+  const BTC_WALLET = 'YOUR_BTC_ADDRESS';
+  const TG_BOT_USERNAME = 'YOUR_BOT_USERNAME';
+  const TG_CHANNEL_USERNAME = 'YOUR_CHANNEL_USERNAME';
+  const API_BASE = 'https://api.vela.best';
 
   let currentItem = null;
   let allContent = [];
-  let allModels = [];
-  let currentModelId = null;
+  let countdownIntervals = {};
 
+  // Initialization
+  async function init() {
+    if (sessionStorage.getItem('age_verified')) {
+      enterSite();
+    }
+    await loadAllContent();
+    setupTelegramChannelLink();
+    initVisitStreak();
+  }
+
+  async function loadAllContent() {
+    try {
+      const res = await fetch(`${API_BASE}/content`);
+      allContent = await res.json();
+    } catch (e) {
+      console.error('Failed to load content:', e);
+    }
+  }
+
+  function setupTelegramChannelLink() {
+    const link = document.getElementById('telegram-channel-link');
+    if (link) {
+      link.href = 'https://t.me/' + TG_CHANNEL_USERNAME;
+    }
+  }
+
+  // AGE GATE
   function enterSite() {
-    document.getElementById('age-gate').style.display = 'none';
-    document.getElementById('main-site').style.display = 'block';
-    sessionStorage.setItem('age_verified', '1');
-    loadModels();
-    loadContent();
-  }
-
-  function showHomepage() {
-    document.getElementById('homepage').classList.remove('hidden');
-    document.getElementById('model-page').classList.remove('visible');
-    window.scrollTo(0, 0);
-    currentModelId = null;
-    history.pushState({ view: 'home' }, '', '#');
-  }
-
-  function showModelPage(modelId) {
-    currentModelId = modelId;
-    const model = allModels.find(m => m.id === modelId);
-    if (model) {
-      document.getElementById('model-page-name').textContent = model.name;
-      document.getElementById('model-page-bio').textContent = model.bio || '';
-      document.getElementById('model-page-photo').textContent = model.name.substring(0, 2).toUpperCase();
-      if (model.cover_photo_url) {
-        document.getElementById('model-page-photo').innerHTML = `<img src="${model.cover_photo_url}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
-      }
-    }
-    document.getElementById('homepage').classList.add('hidden');
-    document.getElementById('model-page').classList.add('visible');
-    window.scrollTo(0, 0);
-    loadContent();
-    history.pushState({ view: 'model', modelId }, '', `#model-${modelId}`);
-  }
-
-  // Handle browser back/forward navigation
-  window.addEventListener('popstate', (event) => {
-    if (event.state && event.state.view === 'model') {
-      showModelPage(event.state.modelId);
-    } else {
-      showHomepage();
-    }
-  });
-
-  function switchTab(tabName) {
-    document.querySelectorAll('.model-tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-    
-    document.querySelector(`.model-tab[onclick="switchTab('${tabName}')"]`).classList.add('active');
-    document.getElementById('tab-' + tabName).classList.add('active');
-  }
-
-  function switchToFreeTab() {
-    if (currentModelId) {
-      showModelPage(currentModelId);
-      switchTab('free');
-    } else if (allModels.length > 0) {
-      showModelPage(allModels[0].id);
-      switchTab('free');
-    }
-  }
-
-  function switchToPremiumTab() {
-    if (currentModelId) {
-      showModelPage(currentModelId);
-      switchTab('premium');
-    } else if (allModels.length > 0) {
-      showModelPage(allModels[0].id);
-      switchTab('premium');
-    }
-  }
-
-  function scrollToAbout() {
-    if (currentModelId) {
-      showModelPage(currentModelId);
-      setTimeout(() => {
-        document.getElementById('model-about').scrollIntoView({ behavior: 'smooth' });
-      }, 100);
-    } else if (allModels.length > 0) {
-      showModelPage(allModels[0].id);
-      setTimeout(() => {
-        document.getElementById('model-about').scrollIntoView({ behavior: 'smooth' });
-      }, 100);
-    }
+    document.getElementById('age-gate').classList.add('hidden');
+    document.getElementById('main-site').classList.add('visible');
+    sessionStorage.setItem('age_verified', 'true');
+    initVisitStreak();
   }
 
   function exitSite() {
     window.location.href = 'https://www.google.com';
   }
 
-  async function loadModels() {
-    try {
-      console.log('Loading models from:', `${API_BASE}/api/models`);
-      const res = await fetch(`${API_BASE}/api/models`);
-      console.log('Response status:', res.status);
-      if (!res.ok) {
-        const errorText = await res.text();
-        console.error('Error response:', errorText);
-        throw new Error(`Failed to fetch models: ${res.status} ${errorText}`);
-      }
-      allModels = await res.json();
-      console.log('Models loaded:', allModels);
+  // PAGE NAVIGATION
+  function showHomepage() {
+    document.getElementById('homepage').classList.remove('hidden');
+    document.getElementById('model-page').classList.remove('visible');
+    loadContent();
+  }
 
-      if (allModels.length === 0) {
-        document.getElementById('models-grid').innerHTML = '<div style="grid-column:1/-1;padding:3rem;">No models found. Add models in the admin panel.</div>';
-        return;
-      }
+  function showModelPage(modelId) {
+    document.getElementById('homepage').classList.add('hidden');
+    document.getElementById('model-page').classList.add('visible');
+    loadContent(modelId);
+    renderPricingStrip();
+    initVisitStreak();
+  }
 
-      document.getElementById('models-grid').innerHTML = allModels.map(model => `
-        <div class="model-card" onclick="showModelPage('${model.id}')">
-          <div class="model-photo">
-            ${model.cover_photo_url
-              ? `<img src="${model.cover_photo_url}" style="width:100%;height:100%;object-fit:cover;">`
-              : model.name.substring(0, 2).toUpperCase()}
-          </div>
-          <div class="model-info">
-            <div class="model-name">${model.name}</div>
-            <div class="model-tagline">Exclusive · Uncensored · Real</div>
-            <button class="model-view-btn">View Profile</button>
-          </div>
-        </div>
-      `).join('');
-    } catch (err) {
-      console.error('Load models error:', err);
-      document.getElementById('models-grid').innerHTML = `<div style="grid-column:1/-1;padding:3rem;">Error: ${err.message}</div>`;
+  // CONTENT LOADING
+  async function loadContent(modelId) {
+    if (!modelId) {
+      renderModels();
+    } else {
+      renderModel(modelId);
     }
   }
 
-  async function loadContent() {
-    try {
-      const url = currentModelId ? `${API_BASE}/api/content?model_id=${currentModelId}` : `${API_BASE}/api/content`;
-      const res = await fetch(url);
-      if (!res.ok) throw new Error('Failed to fetch content');
-      allContent = await res.json();
-      
-      const freeContent = allContent.filter(item => item.is_free);
-      document.getElementById('free-content-grid').innerHTML = freeContent.map(item => `
+  function renderModels() {
+    const grid = document.getElementById('models-grid');
+    grid.innerHTML = allContent.slice(0, 6).map(item => `
+      <div class="model-card" onclick="showModelPage('${item.id}')">
+        <div class="model-photo">${item.name.charAt(0)}</div>
+        <div class="model-info">
+          <div class="model-name">${item.name}</div>
+          <div class="model-tagline">View Profile</div>
+          <button class="model-view-btn">Visit</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function renderModel(modelId) {
+    const model = allContent.find(m => m.name === 'TIMASAVAGEX') || allContent[0];
+    document.getElementById('model-page-name').textContent = model?.name || 'TIMASAVAGEX';
+    document.getElementById('model-page-photo').textContent = (model?.name || 'TS').charAt(0);
+    renderFreeContent();
+    renderLockedContent();
+  }
+
+  function renderFreeContent() {
+    const grid = document.getElementById('free-content-grid');
+    const free = allContent.filter(c => c.is_free);
+    if (!free.length) {
+      grid.innerHTML = '<div class="thumb-placeholder">No free content yet</div>';
+      return;
+    }
+    grid.innerHTML = free.map(item => {
+      const isNew = isNewItem(item);
+      return `
         <div class="content-card" onclick="openFreeItem('${item.id}')">
           <div class="content-thumb">
-            <img src="${item.thumbnail_url}" alt="${item.title}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='<div class=thumb-placeholder>${item.title}</div>'">
+            ${isNew ? '<span class="new-badge">NEW</span>' : ''}
+            <div class="thumb-placeholder">${item.type}</div>
           </div>
           <div class="content-info">
             <span class="content-tag">${item.type_label}</span>
             <div class="content-name">${item.title}</div>
           </div>
         </div>
-      `).join('');
+      `;
+    }).join('');
+  }
 
-      const premiumContent = allContent.filter(item => !item.is_free);
-      document.getElementById('locked-content-grid').innerHTML = premiumContent.map(item => `
-        <div class="locked-card" onclick="showPaymentModal('${item.id}', '${item.title}', ${item.price_usd})">
+  function renderLockedContent() {
+    const grid = document.getElementById('locked-content-grid');
+    const locked = allContent.filter(c => !c.is_free);
+    if (!locked.length) {
+      grid.innerHTML = '<div class="thumb-placeholder">No premium content yet</div>';
+      return;
+    }
+    grid.innerHTML = locked.map(item => {
+      const isNew = isNewItem(item);
+      const hasDrops = item.drops_expires_at;
+      const countdownText = hasDrops ? calculateCountdown(item.drops_expires_at) : '';
+      return `
+        <div class="locked-card" data-new="${isNew ? 'true' : 'false'}" onclick="openModal('${item.id}')">
           <div class="locked-thumb">
+            ${isNew ? '<span class="new-badge">NEW</span>' : ''}
+            ${hasDrops ? `<span class="countdown-badge" data-expires="${item.drops_expires_at}">${countdownText}</span>` : ''}
             <div class="locked-blur">
-              <div class="lock-icon"><svg viewBox="0 0 24 24"><rect x="3" y="10" width="18" height="10" rx="2"/><path d="M7 10V6a5 5 0 0110 0v4"/></svg></div>
-              <div class="locked-price-badge">$${parseFloat(item.price_usd).toFixed(2)}</div>
+              <div class="lock-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="11" x2="9" y2="14"/><circle cx="12" cy="11" r="1"/></svg></div>
+              <div class="locked-price-badge">${formatPrice(item.price_usd)}</div>
             </div>
           </div>
           <div class="locked-info">
             <div>
               <span class="locked-tag">${item.type_label}</span>
               <div class="locked-name">${item.title}</div>
+              <div class="locked-price">${formatPrice(item.price_usd)}</div>
+              <div class="locked-subscription-hint">or sub @ $9.99/mo</div>
             </div>
-            <div class="locked-price">$${parseFloat(item.price_usd).toFixed(2)}</div>
           </div>
         </div>
-      `).join('');
-    } catch (err) {
-      console.error('Content loading error:', err);
-      document.getElementById('free-content-grid').innerHTML = '<div class="thumb-placeholder" style="grid-column:1/-1;">Error loading content</div>';
-    }
+      `;
+    }).join('');
+    
+    startCountdownTimer();
   }
 
-  function openFreeItem(itemId) {
-    const item = allContent.find(i => i.id === itemId);
-    if (item && item.file_url) {
-      window.open(item.file_url, '_blank');
-    }
+  function isNewItem(item) {
+    if (!item.created_at) return false;
+    const createdDate = new Date(item.created_at);
+    const now = new Date();
+    const diffDays = (now - createdDate) / (1000 * 60 * 60 * 24);
+    return diffDays <= 7;
   }
 
-  function showPaymentModal(itemId, title, price) {
-    currentItem = { id: itemId, title, price: parseFloat(price) };
-    document.getElementById('preview-name').textContent = title;
-    document.getElementById('preview-price').textContent = '$' + price.toFixed(2);
-    document.getElementById('preview-type').textContent = 'Premium Content';
-    document.getElementById('amount-display').textContent = '$' + price.toFixed(2);
+  function calculateCountdown(expiresAt) {
+    const expires = new Date(expiresAt);
+    const now = new Date();
+    const diff = expires - now;
+    if (diff <= 0) return 'EXPIRED';
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    return `LIMITED · ${hours}h ${mins}m`;
+  }
+
+  function startCountdownTimer() {
+    Object.values(countdownIntervals).forEach(id => clearInterval(id));
+    countdownIntervals = {};
+    setInterval(() => {
+      document.querySelectorAll('.countdown-badge').forEach(badge => {
+        const expires = badge.getAttribute('data-expires');
+        if (expires) {
+          badge.textContent = calculateCountdown(expires);
+        }
+      });
+    }, 60000);
+  }
+
+  // TABS & SECTIONS
+  function switchTab(tabName) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.model-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(`tab-${tabName}`).classList.add('active');
+    document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+  }
+
+  function switchToFreeTab() {
+    switchTab('free');
+  }
+
+  function switchToPremiumTab() {
+    switchTab('premium');
+  }
+
+  // PRICING STRIP
+  function renderPricingStrip() {
+    const strip = document.getElementById('pricing-strip');
+    if (!strip) return;
+    strip.innerHTML = `
+      <div class="pricing-card">
+        <div class="pricing-tier">Free</div>
+        <div class="pricing-price">Free</div>
+        <ul class="pricing-features">
+          <li>Browse all model profiles</li>
+          <li>View all free content</li>
+          <li>Join Telegram channel</li>
+        </ul>
+        <button class="pricing-cta disabled" disabled>You're In</button>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-tier">Model Sub</div>
+        <div class="pricing-price">$9.99<span style="font-size:0.8rem;">/mo</span></div>
+        <ul class="pricing-features">
+          <li>Unlock ALL content from this model</li>
+          <li>New drops instantly</li>
+          <li>Cancel anytime</li>
+        </ul>
+        <button class="pricing-cta filled" onclick="openModal({id:'sub_model',title:'Monthly Subscription — TIMASAVAGEX',type:'subscription',type_label:'Monthly Sub',price_usd:'9.99'})">Subscribe Now</button>
+      </div>
+      <div class="pricing-card most-popular">
+        <div class="pricing-tier">VIP Pass</div>
+        <div class="pricing-price">$24.99<span style="font-size:0.8rem;">/mo</span></div>
+        <ul class="pricing-features">
+          <li>All models all content</li>
+          <li>Priority link delivery</li>
+          <li>VIP Telegram group access</li>
+        </ul>
+        <button class="pricing-cta filled" onclick="openModal({id:'sub_vip',title:'VIP Pass — All Models',type:'subscription',type_label:'VIP Pass',price_usd:'24.99'})">Go VIP</button>
+      </div>
+    `;
+  }
+
+  // MODAL
+  function openModal(itemOrId) {
+    if (typeof itemOrId === 'string') {
+      currentItem = allContent.find(c => c.id === itemOrId);
+    } else {
+      currentItem = itemOrId;
+    }
+    if (!currentItem) return;
+    
+    document.getElementById('preview-name').textContent = currentItem.title;
+    document.getElementById('preview-type').textContent = currentItem.type_label;
+    document.getElementById('preview-price').textContent = formatPrice(currentItem.price_usd);
+    
+    const tgHandle = localStorage.getItem('tg_handle') || '';
+    document.getElementById('modal-tg-handle').value = tgHandle;
+    
+    updatePaymentAmounts();
+    
     document.getElementById('modal-overlay').classList.add('open');
-    document.getElementById('tx-hash').value = '';
+    resetPaymentUI();
+  }
+
+  function updatePaymentAmounts() {
+    const amount = currentItem.price_usd;
+    document.getElementById('binance-amount').textContent = formatPrice(amount);
+    document.getElementById('binance-amount-copy').textContent = amount;
+    document.getElementById('usdt-amount').textContent = formatPrice(amount);
+    document.getElementById('usdt-amount-copy').textContent = amount;
+    document.getElementById('bitcoin-amount').textContent = formatPrice(amount);
+    document.getElementById('bitcoin-amount-copy').textContent = amount;
+  }
+
+  function resetPaymentUI() {
+    document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+    document.querySelectorAll('.payment-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tx-input').forEach(i => i.value = '');
+    document.querySelector('#modal-form-area > div:first-child').style.display = 'block';
+    document.querySelector('.success-panel').classList.remove('active');
   }
 
   function closeModal() {
     document.getElementById('modal-overlay').classList.remove('open');
-    currentItem = null;
   }
 
-  function closeModalOutside(event) {
-    if (event.target === document.getElementById('modal-overlay')) {
-      closeModal();
-    }
+  function closeModalOutside(e) {
+    if (e.target.id === 'modal-overlay') closeModal();
   }
 
   function selectPayment(method) {
+    document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+    document.querySelector(`[onclick="selectPayment('${method}')"]`).classList.add('selected');
+    document.getElementById(`${method}-radio`).checked = true;
     document.querySelectorAll('.payment-panel').forEach(p => p.classList.remove('active'));
     document.getElementById(`payment-panel-${method}`).classList.add('active');
-    document.getElementById(`${method}-radio`).checked = true;
   }
 
   function copyToClipboard(elementId) {
@@ -1219,67 +1656,145 @@
       const btn = event.target;
       const original = btn.textContent;
       btn.textContent = 'Copied!';
-      setTimeout(() => { btn.textContent = original; }, 2000);
+      setTimeout(() => { btn.textContent = original; }, 1500);
     });
   }
 
-  async function submitPayment(method) {
-    if (!currentItem) return;
+  function submitCryptoPayment(method) {
+    const tgHandle = document.getElementById('modal-tg-handle').value;
+    const txId = document.getElementById(`${method}-tx-id`).value;
     
-    let txHash = null;
-    if (method === 'binance') {
-      txHash = document.getElementById('tx-hash').value.trim();
-      if (!txHash) { alert('Please enter transaction hash'); return; }
-    } else if (method === 'paypal') {
-      txHash = document.getElementById('paypal-tx-id').value.trim();
-      if (!txHash) { alert('Please enter PayPal transaction ID'); return; }
+    if (!tgHandle.trim()) {
+      alert('Please enter your Telegram handle');
+      return;
+    }
+    if (!txId.trim()) {
+      alert('Please enter your transaction ID');
+      return;
     }
     
-    const telegramHandle = prompt('Enter your Telegram username (for content delivery):');
-    if (!telegramHandle) { alert('Telegram username is required'); return; }
+    localStorage.setItem('tg_handle', tgHandle);
     
+    submitPayment(method, txId);
+  }
+
+  async function submitPayment(method, txId) {
     try {
-      const res = await fetch(`${API_BASE}/api/orders`, {
+      const payload = {
+        item_id: currentItem.id,
+        method: method,
+        tx_id: txId || '',
+        tg_handle: document.getElementById('modal-tg-handle').value
+      };
+      const res = await fetch(`${API_BASE}/payment`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          content_item_id: currentItem.id,
-          payment_method: method,
-          transaction_id: txHash,
-          telegram_handle: telegramHandle
-        })
+        body: JSON.stringify(payload)
       });
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error || 'Payment submission failed');
-      }
-      const data = await res.json();
-      if (data.status === 'verified') {
-        alert('Payment verified! Your content will be sent to Telegram shortly.');
+      if (res.ok) {
+        showSuccessPanel();
+        window.open('https://t.me/' + TG_BOT_USERNAME, '_blank');
       } else {
-        alert('Order submitted! We\'ll verify your payment and send content to Telegram shortly.');
+        alert('Payment failed. Please try again.');
       }
-      closeModal();
-    } catch (err) {
-      alert('Error: ' + err.message);
+    } catch (e) {
+      console.error('Payment error:', e);
+      alert('Payment error. Please try again.');
     }
   }
 
-  function initiateTelepayment() {
-    if (!currentItem) return;
-    const telegramId = prompt('Enter your Telegram User ID:');
-    if (!telegramId) return;
-    alert('Please complete payment via Telegram. Your content will be delivered after verification.');
-    closeModal();
+  function showSuccessPanel() {
+    document.getElementById('modal-form-area').style.display = 'none';
+    const successPanel = document.querySelector('.success-panel');
+    successPanel.classList.add('active');
+    renderRecommendedItems();
   }
 
-  if (sessionStorage.getItem('age_verified')) {
-    document.getElementById('age-gate').style.display = 'none';
-    document.getElementById('main-site').style.display = 'block';
-    loadModels();
-    loadContent();
+  function renderRecommendedItems() {
+    const grid = document.getElementById('might-like-grid');
+    const recommended = allContent
+      .filter(c => !c.is_free && c.id !== currentItem.id)
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 3);
+    
+    grid.innerHTML = recommended.map(item => `
+      <div class="might-like-card" onclick="closeModal(); openModal('${item.id}')">
+        <div class="might-like-thumb">
+          <div class="might-like-lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="11" x2="9" y2="14"/><circle cx="12" cy="11" r="1"/></svg></div>
+        </div>
+        <div class="might-like-info">
+          <div class="might-like-name">${item.title.substring(0, 20)}...</div>
+        </div>
+      </div>
+    `).join('');
   }
+
+  function openFreeItem(itemId) {
+    const item = allContent.find(c => c.id === itemId);
+    if (item && item.file_url) {
+      window.open(item.file_url, '_blank');
+    }
+  }
+
+  // UTILITIES
+  function formatPrice(price) {
+    const num = parseFloat(price);
+    return '$' + num.toFixed(2);
+  }
+
+  function escapeHtml(text) {
+    const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+    return text.replace(/[&<>"']/g, m => map[m]);
+  }
+
+  // RETENTION FEATURES
+  function initVisitStreak() {
+    const today = new Date().toISOString().split('T')[0];
+    const lastVisit = localStorage.getItem('last_visit_date');
+    let streak = parseInt(localStorage.getItem('visit_streak') || '0');
+    
+    if (lastVisit === today) {
+      return;
+    }
+    
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    const yesterdayStr = yesterday.toISOString().split('T')[0];
+    
+    if (lastVisit === yesterdayStr) {
+      streak++;
+    } else {
+      streak = 1;
+    }
+    
+    localStorage.setItem('last_visit_date', today);
+    localStorage.setItem('visit_streak', streak);
+    
+    if (streak >= 3) {
+      showStreakBanner(streak);
+    }
+  }
+
+  function showStreakBanner(streak) {
+    const container = document.getElementById('streak-banner-container');
+    const freeItem = allContent.find(c => c.is_free && c.file_url);
+    
+    container.innerHTML = `
+      <div class="streak-banner">
+        <span class="streak-banner-text">🔥 You're on a ${streak}-day streak — here's a free preview on us</span>
+        <button class="streak-banner-close" onclick="this.parentElement.remove()">✕</button>
+      </div>
+    `;
+    
+    if (freeItem) {
+      setTimeout(() => {
+        openFreeItem(freeItem.id);
+      }, 500);
+    }
+  }
+
+  // Initialize on load
+  window.addEventListener('load', init);
 </script>
-
 </body>
 </html>
