@@ -16,17 +16,27 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5500';
-const allowedOrigins = frontendUrl.split(',').map((u) => u.trim());
+const envOrigins = frontendUrl.split(',').map((u) => u.trim());
 
-// Add Vercel admin URL to allowed origins
-const allAllowedOrigins = [...allowedOrigins, 'https://timasavage.vercel.app', 'http://localhost:3000'];
+// CORS allowed origins array
+const allAllowedOrigins = [
+  'https://timasavage.vercel.app',
+  'https://timsavagex.netlify.app',
+  'http://localhost:3000',
+  'http://localhost:5500',
+  'http://127.0.0.1:5500',
+  ...envOrigins
+];
+
+// Remove duplicates
+const uniqueAllowedOrigins = [...new Set(allAllowedOrigins)];
 
 app.use(cors({
   origin: function(origin, callback) {
     // Allow requests with no origin (like mobile apps, curl, etc)
     if (!origin) return callback(null, true);
     
-    if (allAllowedOrigins.indexOf(origin) !== -1) {
+    if (uniqueAllowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
@@ -58,7 +68,7 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/links', linksRoutes);
 
 app.get('/download/:token', async (req, res) => {
-  const frontend = allowedOrigins[0].replace(/\/$/, '');
+  const frontend = envOrigins[0].replace(/\/$/, '');
   res.redirect(`${frontend}/download/${req.params.token}`);
 });
 
